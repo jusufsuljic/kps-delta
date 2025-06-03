@@ -2,9 +2,6 @@
 
 import Image from "next/image"
 import styled from "styled-components"
-import { RiVisaFill } from "react-icons/ri";
-import { FaCcPaypal, FaCcMastercard } from "react-icons/fa";
-import { SiAmericanexpress, SiKlarna } from "react-icons/si";
 import { FaInstagram } from "react-icons/fa6";
 import { FaWhatsapp } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";

@@ -108,7 +108,7 @@ const SignUpPageContainer = styled.div`
   align-items: center;
   padding: 1rem 20rem;
   @media screen and (max-width: 767px) {
-    padding: 0;
+    padding: 1rem;
   }
 
   h1 {

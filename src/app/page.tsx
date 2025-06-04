@@ -6,13 +6,16 @@ import squadImg from '@/../public/squad.jpg'
 import gunImg from '@/../public/gun.jpg'
 import rangeImg from '@/../public/shooting_range.jpg'
 import registerImg from '@/../public/register.jpg'
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+
+  const router = useRouter()
 
   return (
     <HomePageContainer>
       <MenuSelector>
-        <MenuSelectorItem>
+        <MenuSelectorItem onClick={() => router.push("/prijava")}>
           <ImageWrapper>
             <FloatingContainer delay="0s">
               <StyledImage src={registerImg} fill alt="PRIJAVA" />

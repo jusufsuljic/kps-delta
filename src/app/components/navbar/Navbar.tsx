@@ -6,7 +6,6 @@ import NavbarItem from "./NavbarItem";
 import { FaUser } from "react-icons/fa";
 import { IoSearchSharp } from "react-icons/io5";
 
-
 const Navbar = () => {
     return (
         <NavbarContainer>
@@ -20,7 +19,7 @@ const Navbar = () => {
                 <CustomLinksContainer>
                     <a>Trening</a>
                     <a>Galerija</a>
-                    <a>Prijava</a>
+                    <a href="prijava">Prijava</a>
                     <a>O nama</a>
                 </CustomLinksContainer>
 

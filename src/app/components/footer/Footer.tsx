@@ -11,9 +11,9 @@ const Footer = () => {
     return (
         <FooterContainer>
             <TopContainer>
-                <span>IDPA</span>
+                <span><a href="https://www.idpa.com/" target="_blank">IDPA</a></span>
                 <span>PODRŽANI PIŠTOLJI</span>
-                <span>PRIVACY POLICY</span>
+                <span>PRAVILA O PRIVATNOSTI</span>
                 <span>KONTAKT</span>
             </TopContainer>
             <MidContainer>

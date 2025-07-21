@@ -127,39 +127,39 @@ const Logo = styled(Image)`
     }
 `;
 
-// The rest of your styled components (if needed in the future)
-const RightPortion = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  min-width: 150px;
-  @media screen and (max-width: 767px) {
-    justify-content: center;
-    }
-`;
+// // The rest of your styled components (if needed in the future)
+// const RightPortion = styled.div`
+//   display: flex;
+//   justify-content: flex-end;
+//   align-items: center;
+//   min-width: 150px;
+//   @media screen and (max-width: 767px) {
+//     justify-content: center;
+//     }
+// `;
 
-const CustomSearchInput = styled.input`
-    width: 100%;
-    padding-left: 1rem;
-    height: 3rem;
-    border-radius: 6px;
-    border: 2px solid gray;
-    :focus {
-        border: 3px solid #CEFF51
-    }
-`;
+// const CustomSearchInput = styled.input`
+//     width: 100%;
+//     padding-left: 1rem;
+//     height: 3rem;
+//     border-radius: 6px;
+//     border: 2px solid gray;
+//     :focus {
+//         border: 3px solid #CEFF51
+//     }
+// `;
 
-const CustomSearchInputContainer = styled.div`
-    width: 90%;
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-    svg {
-        width: 1.5em;
-        height: 1.5em;
-        flex-shrink: 0;
-        color: #ffffff;
-        cursor: pointer;
-    }
-`;
+// const CustomSearchInputContainer = styled.div`
+//     width: 90%;
+//     display: flex;
+//     gap: 10px;
+//     justify-content: center;
+//     align-items: center;
+//     svg {
+//         width: 1.5em;
+//         height: 1.5em;
+//         flex-shrink: 0;
+//         color: #ffffff;
+//         cursor: pointer;
+//     }
+// `;

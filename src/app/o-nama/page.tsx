@@ -31,6 +31,7 @@ export default function ContactPage() {
                 setSubmissionMessage(result.error || 'Došlo je do greške.');
             }
         } catch (error) {
+            console.log(error);
             setSubmissionStatus('error');
             setSubmissionMessage('Greška u komunikaciji sa serverom. Pokušajte ponovo.');
         } finally {

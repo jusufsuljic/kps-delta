@@ -99,10 +99,10 @@ const Navbar = () => {
             <ArrowDown open={treningOpen} />
           </DropdownToggle>
           <DropdownMenu open={treningOpen}>
-            <DropdownLink href="/trening/osnovni" onClick={closeMenu}>
+            <DropdownLink href="/obuka?tab=pistol" onClick={closeMenu}>
               Delta - Pistol Level 1
             </DropdownLink>
-            <DropdownLink href="/trening/napredni" onClick={closeMenu}>
+            <DropdownLink href="/obuka?tab=lowlight" onClick={closeMenu}>
               Delta - Low light pistol Level 1
             </DropdownLink>
           </DropdownMenu>

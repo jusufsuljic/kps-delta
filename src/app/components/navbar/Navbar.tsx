@@ -108,7 +108,7 @@ const Navbar = () => {
           </DropdownMenu>
         </MobileMenuItem>
         <MobileMenuItem>
-          <StyledLink href="/galerija" onClick={closeMenu}>
+          <StyledLink href="/idpa" onClick={closeMenu}>
             IDPA
           </StyledLink>
         </MobileMenuItem>

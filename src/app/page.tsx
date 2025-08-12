@@ -2,10 +2,10 @@
 
 import styled, { keyframes } from "styled-components";
 import Image from "next/image";
-import squadImg from '@/../public/squad.jpg'
-import gunImg from '@/../public/gun.jpg'
-import rangeImg from '@/../public/shooting_range.jpg'
-import registerImg from '@/../public/register.jpg'
+import idpaimg from '@/../public/idpaimg.jpg'
+import onamaimg from '@/../public/onamaimg.jpg'
+import obukaImg from '@/../public/obukaimg.jpg'
+import registerImg from '@/../public/registerimg.png'
 import { useRouter } from "next/navigation";
 
 export default function Home() {
@@ -18,41 +18,41 @@ export default function Home() {
         <MenuSelectorItem onClick={() => router.push("/prijava")}>
           <ImageWrapper>
             <FloatingContainer delay="0s">
-              <StyledImage src={registerImg} fill alt="PRIJAVA" />
+              <StyledImage src={registerImg} fill alt="UČLANI SE" />
             </FloatingContainer>
             <Overlay />
           </ImageWrapper>
-          <StyledText>PRIJAVA</StyledText>
+          <StyledText>UČLANI SE</StyledText>
         </MenuSelectorItem>
 
 
-        <MenuSelectorItem>
+        <MenuSelectorItem onClick={() => router.push("/obuka")}>
           <ImageWrapper>
             <FloatingContainer delay="0.2s">
-              <StyledImage src={squadImg} fill alt="O NAMA" />
+              <StyledImage src={obukaImg} fill alt="OBUKA" />
+            </FloatingContainer>
+            <Overlay />
+          </ImageWrapper>
+          <StyledText>OBUKA</StyledText>
+        </MenuSelectorItem>
+
+        <MenuSelectorItem onClick={() => router.push("/idpa")}>
+          <ImageWrapper>
+            <FloatingContainer delay="0.3s">
+              <StyledImage src={idpaimg} fill alt="IDPA" />
+            </FloatingContainer>
+            <Overlay />
+          </ImageWrapper>
+          <StyledText>IDPA</StyledText>
+        </MenuSelectorItem>
+        <MenuSelectorItem onClick={() => router.push("/o-nama")}>
+          <ImageWrapper>
+            <FloatingContainer delay="0.4s">
+              <StyledImage src={onamaimg} fill alt="O NAMA" />
             </FloatingContainer>
             <Overlay />
           </ImageWrapper>
           <StyledText>O NAMA</StyledText>
-        </MenuSelectorItem>
-
-        <MenuSelectorItem>
-          <ImageWrapper>
-            <FloatingContainer delay="0.3s">
-              <StyledImage src={rangeImg} fill alt="TRENING" />
-            </FloatingContainer>
-            <Overlay />
-          </ImageWrapper>
-          <StyledText>TRENING</StyledText>
-        </MenuSelectorItem>
-        <MenuSelectorItem>
-          <ImageWrapper>
-            <FloatingContainer delay="0.4s">
-              <StyledImage src={gunImg} fill alt="ORUŽJE" />
-            </FloatingContainer>
-            <Overlay />
-          </ImageWrapper>
-          <StyledText>ORUŽJE</StyledText>
         </MenuSelectorItem>
 
       </MenuSelector>

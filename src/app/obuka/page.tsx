@@ -1,108 +1,110 @@
-"use client"
+'use client'
 
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSearchParams } from "next/navigation"; // optional if needed
 
 const trainings = [
-    {
-        id: "pistol",
-        label: "Delta - Pistol Level 1",
-        content: (
-            <>
-                <p>
-                    Trening je namijenjen osobama koje nemaju prethodno iskustvo s
-                    vatrenim oružjem ili su do sada imali minimalan kontakt s njim. <br />
-                    <br />
-                    Obuka uključuje praktične vježbe rukovanja pištoljem, pravilnog stava,
-                    osnovne tehnike gađanja, te sigurne manipulacije oružjem u
-                    kontrolisanim uslovima. <br /><br /> Broj učesnika je ograničen na maksimalno 10,
-                    kako bismo svakom polazniku mogli posvetiti dovoljno pažnje i
-                    osigurati kvalitetan i siguran trening.
-                </p>
-                <p><strong>Šta je potrebno?</strong></p>
-                <ul>
-                    <li>
-                        Odjeća prilagođena vremenskim uslovima (trening se održava bez
-                        obzira na vremenske prilike)
-                    </li>
-                    <li>Sva potrebna oprema će Vam biti obezbijeđena</li>
-                </ul>
-                <p>Lokacija: Sportsko strelište Žuč</p>
-                <p>Trajanje: 70 Minuta</p>
-                <p>Cijena kotizacije 80 KM</p>
-            </>
-        ),
-        url: ""
-    },
-    {
-        id: "lowlight",
-        label: "Delta - Low light pistol Level 1",
-        content: (
-            <>
-                <p>
-                    Trening uključuje praktične vježbe korištenja svjetla, kretanja i gađanja u noćnim uslovima. <br /><br />
-                    Broj učesnika je ograničen na maksimalno 10, kako bismo osigurali kvalitetnu i sigurnu obuku za svakog polaznika.
-                </p>
-                <p><strong>Šta je potrebno?</strong></p>
-                <ul>
-                    <li>
-                        Pištolj i odgovarajuća futrola (nije dozvoljena upotreba kožnih ili najlonskih futrola)
-                    </li>
-                    <li>Zaštita za oči i uši (poželjna elektronska zaštita sluha)</li>
-                    <li>Najmanje 2 okvira (magazina), futrola za okvire</li>
-                    <li>110 metaka (moguće kupiti i kod nas)</li>
-                    <li>Ručna lampa (baterijska) sa svježim baterijama</li>
-                    <li>Ako koristite pištolj sa montiranom lampom, onda nosite samo to.</li>
-                    <li>Čeona lampa obavezna(sigurnosna pravila)</li>
-                    <li>Odjeća prilagođena vremenskim uslovima (trening se održava bez obzira na vremenske prilike)</li>
-                    <li>Čeona lampa obavezna(sigurnosna pravila)</li>
-                    <li>Čeona lampa obavezna(sigurnosna pravila)</li>
-                </ul>
-                <p>Lokacija: Sportsko strelište Žuč</p>
-                <p>Trajanje: 70 Minuta</p>
-                <p>Cijena kotizacije 80 KM</p>
-            </>
-        ),
-        url: ""
-    },
+  {
+    id: "pistol",
+    label: "Delta - Pistol Level 1",
+    content: (
+      <>
+        <p>
+          Trening je namijenjen osobama koje nemaju prethodno iskustvo s
+          vatrenim oružjem ili su do sada imali minimalan kontakt s njim. <br />
+          <br />
+          Obuka uključuje praktične vježbe rukovanja pištoljem, pravilnog stava,
+          osnovne tehnike gađanja, te sigurne manipulacije oružjem u
+          kontrolisanim uslovima. <br /><br /> Broj učesnika je ograničen na maksimalno 10,
+          kako bismo svakom polazniku mogli posvetiti dovoljno pažnje i
+          osigurati kvalitetan i siguran trening.
+        </p>
+        <p><strong>Šta je potrebno?</strong></p>
+        <ul>
+          <li>
+            Odjeća prilagođena vremenskim uslovima (trening se održava bez
+            obzira na vremenske prilike)
+          </li>
+          <li>Sva potrebna oprema će Vam biti obezbijeđena</li>
+        </ul>
+        <p>Lokacija: Sportsko strelište Žuč</p>
+        <p>Trajanje: 70 Minuta</p>
+        <p>Cijena kotizacije 80 KM</p>
+      </>
+    ),
+    url: ""
+  },
+  {
+    id: "lowlight",
+    label: "Delta - Low light pistol Level 1",
+    content: (
+      <>
+        <p>
+          Trening uključuje praktične vježbe korištenja svjetla, kretanja i gađanja u noćnim uslovima. <br /><br />
+          Broj učesnika je ograničen na maksimalno 10, kako bismo osigurali kvalitetnu i sigurnu obuku za svakog polaznika.
+        </p>
+        <p><strong>Šta je potrebno?</strong></p>
+        <ul>
+          <li>
+            Pištolj i odgovarajuća futrola (nije dozvoljena upotreba kožnih ili najlonskih futrola)
+          </li>
+          <li>Zaštita za oči i uši (poželjna elektronska zaštita sluha)</li>
+          <li>Najmanje 2 okvira (magazina), futrola za okvire</li>
+          <li>110 metaka (moguće kupiti i kod nas)</li>
+          <li>Ručna lampa (baterijska) sa svježim baterijama</li>
+          <li>Ako koristite pištolj sa montiranom lampom, onda nosite samo to.</li>
+          <li>Čeona lampa obavezna(sigurnosna pravila)</li>
+          <li>Odjeća prilagođena vremenskim uslovima (trening se održava bez obzira na vremenske prilike)</li>
+          <li>Čeona lampa obavezna(sigurnosna pravila)</li>
+          <li>Čeona lampa obavezna(sigurnosna pravila)</li>
+        </ul>
+        <p>Lokacija: Sportsko strelište Žuč</p>
+        <p>Trajanje: 70 Minuta</p>
+        <p>Cijena kotizacije 80 KM</p>
+      </>
+    ),
+    url: ""
+  },
 ];
 
 const ObukaPage = () => {
-    const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
 
-    useEffect(() => {
-        const tab = searchParams.get("tab");
-        if (tab && trainings.some(t => t.id === tab)) {
-            setActiveTab(tab);
-        }
-    }, [searchParams]);
-    const [activeTab, setActiveTab] = useState(trainings[0].id);
+  useEffect(() => {
+    const tab = searchParams.get("tab");
+    if (tab && trainings.some(t => t.id === tab)) {
+      setActiveTab(tab);
+    }
+  }, [searchParams]);
+  const [activeTab, setActiveTab] = useState(trainings[0].id);
 
-    return (
-        <ObukaPageContainer>
-            <Tabs>
-                {trainings.map(({ id, label }) => (
-                    <TabButton
-                        key={id}
-                        active={activeTab === id}
-                        onClick={() => setActiveTab(id)}
-                        aria-selected={activeTab === id}
-                        role="tab"
-                        tabIndex={activeTab === id ? 0 : -1}
-                    >
-                        {label}
-                    </TabButton>
-                ))}
-            </Tabs>
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ObukaPageContainer>
+        <Tabs>
+          {trainings.map(({ id, label }) => (
+            <TabButton
+              key={id}
+              active={activeTab === id}
+              onClick={() => setActiveTab(id)}
+              aria-selected={activeTab === id}
+              role="tab"
+              tabIndex={activeTab === id ? 0 : -1}
+            >
+              {label}
+            </TabButton>
+          ))}
+        </Tabs>
 
-            <TabContent role="tabpanel">
-                {trainings.find((t) => t.id === activeTab)?.content}
-            </TabContent>
+        <TabContent role="tabpanel">
+          {trainings.find((t) => t.id === activeTab)?.content}
+        </TabContent>
 
-            <CustomButton disabled={true}>COMING SOON...</CustomButton>
-        </ObukaPageContainer>
-    );
+        <CustomButton disabled={true}>COMING SOON...</CustomButton>
+      </ObukaPageContainer>
+    </Suspense>
+  );
 };
 
 export default ObukaPage;

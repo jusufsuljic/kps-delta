@@ -118,6 +118,10 @@ const PageContainer = styled.div`
   color: #fff;
   background-color: #000;
   min-height: 100vh;
+   @media screen and (max-width: 767px) {
+      padding: 2rem;
+
+  }
 `;
 
 const ColumnsWrapper = styled.div`

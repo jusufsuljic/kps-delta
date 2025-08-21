@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import idpaLogo from "@/../public/IDPA-logo.png"
 import Image from "next/image";
-import idpaSlika from "@/../public/idpaSlika.png"
+import idpaSlika from "@/../public/ipdaImgOpt.jpg"
 
 const IDPAPage = () => {
     return (
@@ -67,6 +67,7 @@ const IDPAPageContainer = styled.div`
     display: flex;
     flex-direction: column; 
     padding: 1rem 20rem;
+    font-size: 1rem;
     @media screen and (max-width: 767px) {
         padding: 2rem;
     }

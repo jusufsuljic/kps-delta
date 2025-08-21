@@ -61,7 +61,7 @@ export default function ContactPage() {
 
                 {/* --- This new container holds everything for the right column --- */}
                 <FormColumn>
-                    <h1>Kontaktirajte Nas</h1>
+                    <h1>KONTAKTIRAJTE NAS</h1>
                     <p>Imate pitanje? Popunite formu ispod.</p>
 
                     <FormSection onSubmit={handleSubmit}>
@@ -175,12 +175,11 @@ const FormColumn = styled.div`
 
     h1 {
         color: #ffffff;
-        font-size: 2.5rem;
         margin-bottom: 0.5rem;
     }
   
     p {
-        font-size: 1.1rem;
+        font-size: 1rem;
         color: #b0b0b0;
         margin-bottom: 3rem;
     }

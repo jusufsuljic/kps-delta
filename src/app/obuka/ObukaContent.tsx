@@ -6,21 +6,26 @@ import { useSearchParams } from 'next/navigation';
 
 // --- Data can live here or be imported ---
 const trainings = [
-    {
+  {
     id: "pistol",
     label: "Delta - Pistol Level 1",
     content: (
       <>
         <p>
           Trening je namijenjen osobama koje nemaju prethodno iskustvo s
-          vatrenim oružjem ili su do sada imali minimalan kontakt s njim. <br />
-          <br />
+          vatrenim oružjem ili su do sada imali minimalan kontakt s njim.
+        </p>
+        <p>
           Obuka uključuje praktične vježbe rukovanja pištoljem, pravilnog stava,
           osnovne tehnike gađanja, te sigurne manipulacije oružjem u
-          kontrolisanim uslovima. <br /><br /> Broj učesnika je ograničen na maksimalno 10,
-          kako bismo svakom polazniku mogli posvetiti dovoljno pažnje i
-          osigurati kvalitetan i siguran trening.
+          kontrolisanim uslovima.
         </p>
+        <p>
+          Broj učesnika je ograničen na maksimalno 10, kako bismo svakom
+          polazniku mogli posvetiti dovoljno pažnje i osigurati kvalitetan i
+          siguran trening.
+        </p>
+
         <p><strong>Šta je potrebno?</strong></p>
         <ul>
           <li>
@@ -29,12 +34,13 @@ const trainings = [
           </li>
           <li>Sva potrebna oprema će Vam biti obezbijeđena</li>
         </ul>
+
         <p>Lokacija: Sportsko strelište Žuč</p>
         <p>Trajanje: 70 Minuta</p>
         <p>Cijena kotizacije 80 KM</p>
       </>
     ),
-    url: ""
+    url: "",
   },
   {
     id: "lowlight",
@@ -42,30 +48,43 @@ const trainings = [
     content: (
       <>
         <p>
-          Trening uključuje praktične vježbe korištenja svjetla, kretanja i gađanja u noćnim uslovima. <br /><br />
-          Broj učesnika je ograničen na maksimalno 10, kako bismo osigurali kvalitetnu i sigurnu obuku za svakog polaznika.
+          Trening uključuje praktične vježbe korištenja svjetla, kretanja i
+          gađanja u noćnim uslovima.
         </p>
+        <p>
+          Broj učesnika je ograničen na maksimalno 10, kako bismo osigurali
+          kvalitetnu i sigurnu obuku za svakog polaznika.
+        </p>
+
         <p><strong>Šta je potrebno?</strong></p>
         <ul>
           <li>
-            Pištolj i odgovarajuća futrola (nije dozvoljena upotreba kožnih ili najlonskih futrola)
+            Pištolj i odgovarajuća futrola (nije dozvoljena upotreba kožnih ili
+            najlonskih futrola)
           </li>
           <li>Zaštita za oči i uši (poželjna elektronska zaštita sluha)</li>
           <li>Najmanje 2 okvira (magazina), futrola za okvire</li>
           <li>110 metaka (moguće kupiti i kod nas)</li>
           <li>Ručna lampa (baterijska) sa svježim baterijama</li>
-          <li>Ako koristite pištolj sa montiranom lampom, onda nosite samo to.</li>
-          <li>Čeona lampa obavezna(sigurnosna pravila)</li>
-          <li>Odjeća prilagođena vremenskim uslovima (trening se održava bez obzira na vremenske prilike)</li>
+          <li>
+            Ako koristite pištolj sa montiranom lampom, onda nosite samo to.
+          </li>
+          <li>Čeona lampa obavezna (sigurnosna pravila)</li>
+          <li>
+            Odjeća prilagođena vremenskim uslovima (trening se održava bez
+            obzira na vremenske prilike)
+          </li>
         </ul>
+
         <p>Lokacija: Sportsko strelište Žuč</p>
         <p>Trajanje: 70 Minuta</p>
         <p>Cijena kotizacije 80 KM</p>
       </>
     ),
-    url: ""
+    url: "",
   },
 ];
+
 
 
 const ObukaContent = () => {
@@ -80,8 +99,8 @@ const ObukaContent = () => {
     if (tab && trainings.some(t => t.id === tab)) {
       setActiveTab(tab);
     } else {
-        // Fallback to the first tab if the URL parameter is invalid
-        setActiveTab(trainings[0].id);
+      // Fallback to the first tab if the URL parameter is invalid
+      setActiveTab(trainings[0].id);
     }
   }, [searchParams]);
 
@@ -107,7 +126,7 @@ const ObukaContent = () => {
         {trainings.find((t) => t.id === activeTab)?.content}
       </TabContent>
 
-      <CustomButton disabled={true}>COMING SOON...</CustomButton>
+      <CustomButton disabled={true}>COMING SOON</CustomButton>
     </ObukaPageContainer>
   );
 };
@@ -160,20 +179,31 @@ const TabButton = styled.button<{ active: boolean }>`
 `;
 
 const TabContent = styled.div`
-  font-size: 1.2rem;
+  font-size: 1rem;
   line-height: 1.5;
   margin-bottom: 2rem;
+  width: 100%; /* ensures uniform width */
 
-  p,
-  ul,
-  li {
-    margin-bottom: 1rem;
+  p {
+    margin: 0 0 1.5rem 0; /* reset top margin, keep bottom spacing */
   }
 
   ul {
-    padding-left: 1.2rem;
+    margin: 0 0 1.5rem 0; /* reset top margin */
+    padding-left: 1.2rem; /* uniform left indent */
+    list-style-position: inside; /* keeps bullets aligned with text */
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+
+  strong {
+    display: block; /* makes "Šta je potrebno?" behave like a heading */
+    margin-bottom: 0.5rem;
   }
 `;
+
 
 const CustomButton = styled.button`
   background-color: #ceff51;

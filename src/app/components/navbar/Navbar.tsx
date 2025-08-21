@@ -129,8 +129,9 @@ const linkMobilePadding = "1rem"; // reuse for consistency
 // Container holds logo and menu spaced with justify-content: space-between
 const NavbarContainer = styled.nav`
   padding: 1rem 12rem;
-  max-width: 1440px;
+  /* max-width: 1440px; */
   margin: 0 auto;
+  width: 100%;
   background: #000;
   display: flex;
   align-items: center;

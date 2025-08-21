@@ -7,7 +7,8 @@ import styled from "styled-components";
 export default function SignUp() {
   // Existing state
   const [hasWeapon, setHasWeapon] = useState(false);
-  const [selectedPackage, setSelectedPackage] = useState<'starter' | null>(null);
+  // const [selectedPackage, setSelectedPackage] = useState<'starter' | null>(null);
+  const [selectedPackage, setSelectedPackage] = useState<'starter' | null>("starter");
   const [photoFile, setPhotoFile] = useState<File | null>(null);
 
   // --- NEW: State for handling submission status ---
@@ -91,7 +92,7 @@ export default function SignUp() {
         name="registracija"
         encType="multipart/form-data"
       >
-        <h1>Forma za registraciju</h1>
+        <h1>FORMA ZA REGISTRACIJU</h1>
 
         {/* All your input fields remain the same... */}
         <CustomSignUpInputContainer>
@@ -156,11 +157,11 @@ export default function SignUp() {
         </CustomSignUpInputContainer>
         {hasWeapon && (
           <CustomSignUpInputContainer>
-            <label>Broj oružanog lista</label>
+            <label>Broj oružnog lista</label>
             <input name="brojOruzanogLista" required></input>
           </CustomSignUpInputContainer>
         )}
-        <PackageSelectionContainer>
+        {/* <PackageSelectionContainer>
           <PackageBox
             selected={selectedPackage === 'starter'}
             onClick={() => setSelectedPackage('starter')}
@@ -174,21 +175,8 @@ export default function SignUp() {
             </ul>
             <Price>150 KM/god</Price>
           </PackageBox>
-          {/* <PackageBox
-            selected={selectedPackage === 'premium'}
-            onClick={() => setSelectedPackage('premium')}
-          >
-            <h2>PREMIUM</h2>
-            <ul>
-              <li>Neograničen pristup</li>
-              <li>Personalizovani treninzi</li>
-              <li>1-na-1 sesije</li>
-              <li>Prioritetna podrška</li>
-            </ul>
-            <Price>200 KM/god</Price>
-          </PackageBox> */}
-        </PackageSelectionContainer>
-        <input required hidden value={selectedPackage || ''} readOnly name="paket"></input>
+        </PackageSelectionContainer> */}
+        {/* <input required hidden value={selectedPackage || ''} readOnly name="paket"></input> */}
 
         {/* --- NEW: Button now shows spinner and is disabled while loading --- */}
         <CustomSignUpButton type="submit" disabled={isLoading}>

@@ -69,15 +69,29 @@ const HomePageContainer = styled.div`
   @media screen and (max-width: 767px) {
     padding: 0;
   }
+
+  @media screen and (min-width: 1440px) {
+    padding: 0;
+  }
 `;
 
 const MenuSelector = styled.div`
-  height: 40rem;
+  height: 66rem;
   display: flex;
 
   @media screen and (max-width: 767px) {
     flex-direction: column;
     width: 100%;
+  }
+
+  @media screen and (min-width: 1300px) {
+    height: 32rem;
+    width: 70rem;
+  }
+
+  @media screen and (min-height: 1200px) {
+    height: 66rem;
+    width: 80rem;
   }
 `;
 
@@ -133,6 +147,16 @@ const MenuSelectorItem = styled.div`
 
   @media screen and (max-width: 767px) {
     width: auto;
+  }
+
+  /* Laptops (typical MacBook, ~1024–1366 CSS px) */
+  @media (min-width: 1024px) and (max-width: 1366px) {
+    width: 15rem;
+  }
+
+  /* Large desktops / monitors */
+  @media (min-width: 1370px) {
+    width: 20rem;
   }
 `;
 

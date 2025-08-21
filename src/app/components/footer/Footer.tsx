@@ -136,20 +136,19 @@ const Slogan = styled.div`
 
 
 const FooterContainer = styled.div`
-    background-color: black;
-    padding: 2rem 12rem;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    color: #000000;
-    @media screen and (min-width: 767px) {
-        height: 20rem;
-    }
+  background-color: black;
+  padding: 2rem 12rem;
+  width: 100%;
+  color: #fff;
 
-    @media screen and (max-width: 767px) {
-        padding: 1rem 1rem;
-    }
-`
+  @media screen and (min-width: 767px) {
+    height: 20rem;
+  }
+
+  @media screen and (max-width: 767px) {
+    padding: 1rem 1rem;
+  }
+`;
 
 const TopContainer = styled.div`
     display: flex;

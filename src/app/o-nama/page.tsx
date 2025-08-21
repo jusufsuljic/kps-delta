@@ -29,14 +29,18 @@ export default AboutUsPage
 
 
 const AboutUsPageContainer = styled.div`
- padding: 1rem 20rem;
+    padding: 1rem 20rem;
+    font-size: 1rem;
+
   @media screen and (max-width: 767px) {
     padding: 2rem;
   }
-    span{
+  
+  span{
     display: block;
     margin-bottom: 2rem;
     text-align: justify;
   }
+
   
 `

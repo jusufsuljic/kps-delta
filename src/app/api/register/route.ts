@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
 
         await sheets.spreadsheets.values.append({
             spreadsheetId: process.env.GOOGLE_SHEET_ID!,
-            range: 'Sheet1!A1',
+            range: 'prijave!A1',
             valueInputOption: 'USER_ENTERED',
             requestBody: {
                 values: values,

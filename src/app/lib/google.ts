@@ -25,7 +25,7 @@ export function getOAuthClient() {
 // This function creates a fully authenticated client that can make API calls
 // on your behalf using the stored refresh token.
 export function getGoogleApisClient() {
-    if (!process.env.GOOGLE_REFRESH_TOKEN) {
+    if (!process.env.NEXT_PUBLIC_GOOGLE_REFRESH_TOKEN) {
         throw new Error('Missing GOOGLE_REFRESH_TOKEN in environment variables. Please run the auth flow first.');
     }
 
@@ -34,7 +34,7 @@ export function getGoogleApisClient() {
 
     // Set the refresh token so the client is authenticated
     oauth2Client.setCredentials({
-        refresh_token: process.env.GOOGLE_REFRESH_TOKEN,
+        refresh_token: process.env.NEXT_PUBLIC_GOOGLE_REFRESH_TOKEN,
     });
 
     // Now create the specific API clients (Drive, Sheets, etc.)

@@ -44,6 +44,10 @@ async function parseForm(req: NextRequest): Promise<{ fields: formidable.Fields;
 
 export async function POST(req: NextRequest) {
     try {
+        console.log("CLIENT_ID?", !!process.env.GOOGLE_CLIENT_ID);
+        console.log("CLIENT_SECRET?", !!process.env.GOOGLE_CLIENT_SECRET);
+        console.log("REFRESH_TOKEN?", !!process.env.GOOGLE_REFRESH_TOKEN);
+
         const { drive, sheets } = getGoogleApisClient();
 
         console.log("--- Received a new request. Starting to parse form... ---");

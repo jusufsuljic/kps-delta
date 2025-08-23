@@ -13,8 +13,6 @@ const IDPAPage = () => {
             </IDPALogoWrapper>
             <br />
             <span>IDPA (International Defensive Pistol Association) je sportska streljačka disciplina koja simulira stvarne scenarije samoodbrane koristeći pištolj ili pušku.
-                Takmičenja su osmišljena da testiraju sposobnosti učesnika u realnim i dinamičnim situacijama – kao što su kretanje, zaklon, upotreba pištolja iz futrole(skriveno nošenje).
-                Fokus je na preciznosti, brzini i pravilnoj upotrebi oružja, uz ograničenja u opremi kako bi se zadržala realnost i dostupnost za svakog vlasnika vatrenog oružja.
             </span>
             <span>
                 Takmičenja su osmišljena da testiraju sposobnosti učesnika u realnim i dinamičnim situacijama – kao što su kretanje, zaklon, upotreba pištolja iz futrole(skriveno nošenje).

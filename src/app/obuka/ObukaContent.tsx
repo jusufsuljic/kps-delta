@@ -21,7 +21,7 @@ const trainings = [
           kontrolisanim uslovima.
         </p>
         <p>
-          Broj učesnika je ograničen na maksimalno 10, kako bismo svakom
+          Broj učesnika je ograničen na maksimalno 5, kako bismo svakom
           polazniku mogli posvetiti dovoljno pažnje i osigurati kvalitetan i
           siguran trening.
         </p>
@@ -37,7 +37,7 @@ const trainings = [
 
         <p>Lokacija: Sportsko strelište Žuč</p>
         <p>Trajanje: 70 Minuta</p>
-        <p>Cijena kotizacije 80 KM</p>
+        <p>Cijena kotizacije 60 KM</p>
       </>
     ),
     url: "",
@@ -78,7 +78,7 @@ const trainings = [
 
         <p>Lokacija: Sportsko strelište Žuč</p>
         <p>Trajanje: 70 Minuta</p>
-        <p>Cijena kotizacije 80 KM</p>
+        {/* <p>Cijena kotizacije 80 KM</p> */}
       </>
     ),
     url: "",

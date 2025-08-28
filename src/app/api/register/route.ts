@@ -99,12 +99,13 @@ export async function POST(req: NextRequest) {
             (fields.ime as string[])?.[0] || '',              // Column A: Ime
             (fields.prezime as string[])?.[0] || '',           // Column B: Prezime
             (fields.kontaktTelefon as string[])?.[0] || '',    // Column C: Kontakt Telefon
-            (fields.brojLicneKarte as string[])?.[0] || '',     // Column D: Broj lične karte
-            (fields.adresaStanovanja as string[])?.[0] || '',   // Column E: Adresa stanovanja
-            (fields.hasWeapon as string[])?.[0] || 'Ne',       // Column F: Poseduje oružje?
-            (fields.brojOruzanogLista as string[])?.[0] || '',  // Column G: Broj oružanog lista
-            (fields.paket as string[])?.[0] || '',             // Column H: Paket
-            imageUrl                                           // Column I: Link Fotografije
+            (fields.email as string[])?.[0] || '',              // Column D: Email adresa
+            (fields.brojLicneKarte as string[])?.[0] || '',     // Column E: Broj lične karte
+            (fields.adresaStanovanja as string[])?.[0] || '',   // Column F: Adresa stanovanja
+            (fields.hasWeapon as string[])?.[0] || 'Ne',       // Column G: Poseduje oružje?
+            (fields.brojOruzanogLista as string[])?.[0] || '',  // Column H: Broj oružanog lista
+            (fields.paket as string[])?.[0] || '',             // Column I: Paket
+            imageUrl                                           // Column J: Link Fotografije
         ]];
 
         await sheets.spreadsheets.values.append({

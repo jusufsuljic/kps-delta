@@ -30,6 +30,7 @@ export default function SignUp() {
     formData.append("ime", formElement.ime.value);
     formData.append("prezime", formElement.prezime.value);
     formData.append("kontaktTelefon", formElement.kontaktTelefon.value);
+    formData.append("email", formElement.email.value);
     formData.append("brojLicneKarte", formElement.brojLicneKarte.value);
     formData.append("adresaStanovanja", formElement.adresaStanovanja.value);
     formData.append("hasWeapon", hasWeapon ? "Da" : "Ne");
@@ -106,6 +107,10 @@ export default function SignUp() {
         <CustomSignUpInputContainer>
           <label>Kontakt telefon</label>
           <input name="kontaktTelefon" required></input>
+        </CustomSignUpInputContainer>
+        <CustomSignUpInputContainer>
+          <label>Email</label>
+          <input name="email" required></input>
         </CustomSignUpInputContainer>
         <CustomSignUpInputContainer>
           <label>Broj lične karte</label>

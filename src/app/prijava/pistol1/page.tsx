@@ -39,7 +39,7 @@ export default function Pistol1Signup() {
       if (response.ok) {
         // --- NEW: Handle success ---
         setSubmissionStatus('success');
-        setSubmissionMessage("Uspješno ste poslali registraciju! Kontaktirat ćemo Vas uskoro.");
+        setSubmissionMessage("Uspješno ste poslali registraciju! Bićete obaviješteni o satnici treninga putem poruke (vaš broj telefona).");
         // Reset form fields for a new submission
         formElement.reset();
       } else {
@@ -65,7 +65,7 @@ export default function Pistol1Signup() {
         name="registracija"
         encType="multipart/form-data"
       >
-        <h1>FORMA ZA DELTA - PISTOL LEVEL 1</h1>
+        <h1>REGISTRACIJA ZA DELTA - PISTOL LEVEL 1</h1>
 
         {/* All your input fields remain the same... */}
         <CustomSignUpInputContainer>

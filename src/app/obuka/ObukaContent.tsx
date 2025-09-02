@@ -36,8 +36,8 @@ const trainings = [
         </ul>
 
         <p>Lokacija: Sportsko strelište Žuč</p>
-        <p>Trajanje: 70 Minuta</p>
-        <p>Cijena kotizacije 60 KM</p>
+        <p>Datum: 13.09.2025. (Subota)</p>
+        <p>Trajanje: 60 Minuta</p>
       </>
     ),
     url: "",

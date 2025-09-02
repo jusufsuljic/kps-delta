@@ -1,10 +1,10 @@
 // app/api/register/route.ts
-import formidable, { File } from "formidable";
+import { File } from "formidable";
 import fs from "fs";
 import { NextRequest, NextResponse } from "next/server";
 import { getGoogleApisClient } from "@/app/lib/google";
 import { v4 as uuidv4 } from "uuid";
-import { Readable } from "stream";
+import { parseForm } from "../utils";
 
 export const config = {
     api: {
@@ -12,42 +12,8 @@ export const config = {
     },
 };
 
-// THIS IS THE HELPER FUNCTION YOU NEED TO ADD BACK
-async function parseForm(req: NextRequest): Promise<{ fields: formidable.Fields; files: formidable.Files }> {
-    const buffer = Buffer.from(await req.arrayBuffer());
-
-    // Create a fake stream for formidable
-    const reqStream = new Readable({
-        read() {
-            this.push(buffer);
-            this.push(null);
-        },
-    }) as any;
-
-    // Add necessary headers for formidable to work
-    reqStream.headers = {
-        'content-type': req.headers.get('content-type') || '',
-        'content-length': req.headers.get('content-length') || '',
-    };
-
-    return new Promise((resolve, reject) => {
-        const form = formidable({ multiples: false, keepExtensions: true });
-        form.parse(reqStream, (err, fields, files) => {
-            if (err) {
-                return reject(err);
-            }
-            resolve({ fields, files });
-        });
-    });
-}
-
-
 export async function POST(req: NextRequest) {
     try {
-        console.log("CLIENT_ID?", !!process.env.GOOGLE_CLIENT_ID);
-        console.log("CLIENT_SECRET?", !!process.env.GOOGLE_CLIENT_SECRET);
-        console.log("REFRESH_TOKEN?", !!process.env.GOOGLE_REFRESH_TOKEN);
-
         const { drive, sheets } = getGoogleApisClient();
 
         console.log("--- Received a new request. Starting to parse form... ---");

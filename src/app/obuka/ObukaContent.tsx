@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components'; // Keep this here
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 // --- Data can live here or be imported ---
 const trainings = [
@@ -88,6 +88,7 @@ const trainings = [
 
 
 const ObukaContent = () => {
+  const router = useRouter()
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState(() => {
     const tab = searchParams.get('tab');
@@ -103,6 +104,15 @@ const ObukaContent = () => {
       setActiveTab(trainings[0].id);
     }
   }, [searchParams]);
+
+  const registerForTraining = async () => {
+    if (activeTab === "pistol") {
+      // navigate to prijava/pistol1
+      router.replace("/prijava/pistol1")
+    } else {
+      return
+    }
+  }
 
   return (
     // Use the container component here
@@ -124,9 +134,9 @@ const ObukaContent = () => {
 
       <TabContent role="tabpanel">
         {trainings.find((t) => t.id === activeTab)?.content}
+        <CustomButton onClick={() => registerForTraining()} disabled={activeTab == "lowlight"}>{activeTab == "lowlight" ? "COMING SOON" : "PRIJAVI SE"}</CustomButton>
       </TabContent>
 
-      <CustomButton disabled={true}>COMING SOON</CustomButton>
     </ObukaPageContainer>
   );
 };

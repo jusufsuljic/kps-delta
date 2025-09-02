@@ -4,12 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 
 // --- Main Component ---
-export default function SignUp() {
-  // Existing state
-  const [hasWeapon, setHasWeapon] = useState(false);
-  // const [selectedPackage, setSelectedPackage] = useState<'starter' | null>(null);
-  const [selectedPackage, setSelectedPackage] = useState<'starter' | null>("starter");
-  const [photoFile, setPhotoFile] = useState<File | null>(null);
+export default function Pistol1Signup() {
 
   // --- NEW: State for handling submission status ---
   const [isLoading, setIsLoading] = useState(false);
@@ -32,29 +27,9 @@ export default function SignUp() {
     formData.append("kontaktTelefon", formElement.kontaktTelefon.value);
     formData.append("email", formElement.email.value);
     formData.append("brojLicneKarte", formElement.brojLicneKarte.value);
-    formData.append("adresaStanovanja", formElement.adresaStanovanja.value);
-    formData.append("hasWeapon", hasWeapon ? "Da" : "Ne");
-    formData.append("brojOruzanogLista", hasWeapon ? formElement.brojOruzanogLista?.value || "" : "");
-    formData.append("paket", selectedPackage || "");
-    if (photoFile) {
-      formData.append("fotografija", photoFile);
-    } else {
-      // Basic client-side validation
-      setSubmissionStatus('error');
-      setSubmissionMessage("Molimo Vas da priložite fotografiju.");
-      setIsLoading(false);
-      return;
-    }
-
-    if (selectedPackage !== 'starter' || selectedPackage == null) {
-      setSubmissionStatus('error');
-      setSubmissionMessage("Molimo Vas da odaberete paket.");
-      setIsLoading(false);
-      return;
-    }
 
     try {
-      const response = await fetch("/api/register", {
+      const response = await fetch("/api/register/pistol1", {
         method: "POST",
         body: formData,
       });
@@ -67,9 +42,6 @@ export default function SignUp() {
         setSubmissionMessage("Uspješno ste poslali registraciju! Kontaktirat ćemo Vas uskoro.");
         // Reset form fields for a new submission
         formElement.reset();
-        setHasWeapon(false);
-        setSelectedPackage(null);
-        setPhotoFile(null);
       } else {
         // --- NEW: Handle server error ---
         setSubmissionStatus('error');
@@ -93,7 +65,7 @@ export default function SignUp() {
         name="registracija"
         encType="multipart/form-data"
       >
-        <h1>FORMA ZA REGISTRACIJU</h1>
+        <h1>FORMA ZA DELTA - PISTOL LEVEL 1</h1>
 
         {/* All your input fields remain the same... */}
         <CustomSignUpInputContainer>
@@ -116,73 +88,7 @@ export default function SignUp() {
           <label>Broj lične karte</label>
           <input name="brojLicneKarte" required></input>
         </CustomSignUpInputContainer>
-        <CustomSignUpInputContainer>
-          <label>Fotografija</label>
-          <HiddenFileInput
-            type="file"
-            id="photo"
-            accept="image/*"
-            name="fotografija"
-            onChange={(e) => {
-              if (e.target.files?.[0]) {
-                setPhotoFile(e.target.files[0]);
-              }
-            }}
-          />
-          <CustomUploadLabel htmlFor="photo">
-            {photoFile ? photoFile.name : "Odaberi fotografiju"}
-          </CustomUploadLabel>
-        </CustomSignUpInputContainer>
-        <CustomSignUpInputContainer>
-          <label>Adresa stanovanja</label>
-          <input name="adresaStanovanja" required></input>
-        </CustomSignUpInputContainer>
-        <CustomSignUpInputContainer>
-          <label>Posjedujem oružje</label>
-          <CustomRadioGroup>
-            <input
-              type="radio"
-              id="yes1"
-              name="hasWeapon"
-              value="yes"
-              checked={hasWeapon}
-              onChange={() => setHasWeapon(true)}
-            />
-            <label htmlFor="yes1">Da</label>
-            <input
-              type="radio"
-              id="no1"
-              name="hasWeapon"
-              value="no"
-              checked={!hasWeapon}
-              onChange={() => setHasWeapon(false)}
-            />
-            <label htmlFor="no1">Ne</label>
-          </CustomRadioGroup>
-        </CustomSignUpInputContainer>
-        {hasWeapon && (
-          <CustomSignUpInputContainer>
-            <label>Broj oružnog lista</label>
-            <input name="brojOruzanogLista" required></input>
-          </CustomSignUpInputContainer>
-        )}
-        {/* <PackageSelectionContainer>
-          <PackageBox
-            selected={selectedPackage === 'starter'}
-            onClick={() => setSelectedPackage('starter')}
-          >
-            <h2>STARTER</h2>
-            <ul>
-              <li>Osnovni pristup</li>
-              <li>Jedan trening sedmično</li>
-              <li>Grupne sesije</li>
-              <li>Podrška putem e-maila i WhatsApp-a</li>
-            </ul>
-            <Price>150 KM/god</Price>
-          </PackageBox>
-        </PackageSelectionContainer> */}
-        {/* <input required hidden value={selectedPackage || ''} readOnly name="paket"></input> */}
-
+        
         {/* --- NEW: Button now shows spinner and is disabled while loading --- */}
         <CustomSignUpButton type="submit" disabled={isLoading}>
           {isLoading ? <Spinner /> : "PRIJAVI SE"}
@@ -285,36 +191,11 @@ const SignUpForm = styled.form`
   gap: 1rem;
 `;
 
-const CustomRadioGroup = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin-top: 0.5rem;
-
-  input[type='radio'] {
-    display: none;
-  }
-
-  label {
-    padding: 0.5rem 1rem;
-    border: 2px solid gray;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-weight: 500;
-  }
-
-  input[type='radio']:checked + label {
-    background-color: #ceff51;
-    border-color: #ceff51;
-    color: black;
-  }
-`;
-
 const CustomSignUpInputContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-input {
+  input {
     background-color: #1a1a1a;
     color: #fff;
     height: 2.5rem;
@@ -328,76 +209,5 @@ input {
       outline: none;
       border-color: #CEFF51;
     }
-  }
-`;
-
-const PackageSelectionContainer = styled.div`
-  display: flex;
-  gap: 1rem;
-  justify-content: space-between;
-  margin: 2rem 0;
-  flex-wrap: wrap;
-
-  @media screen and (max-width: 767px) {
-    flex-direction: column;
-  }
-`;
-
-const PackageBox = styled.div<{ selected: boolean; premium?: boolean }>`
-  flex: 1;
-  min-width: 240px;
-  padding: 1.5rem;
-  border-radius: 12px;
-  border: 2px solid #ceff51;
-  background-color: ${({ selected }) => (selected ? '#ceff51' : 'transparent')};
-  color: ${({ selected }) => (selected ? '#000' : '#ceff51')};
-  box-shadow: ${({ premium }) => premium ? '0 0 10px rgba(206, 255, 81, 0.4)' : 'none'};
-  cursor: pointer;
-  transition: all 0.25s ease;
-  text-align: left;
-
-  &:hover {
-    background-color: #ceff51;
-    color: #000;
-  }
-
-  h2 {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-  }
-
-  ul {
-    margin: 1rem 0;
-    padding-left: 1.2rem;
-    list-style-type: disc;
-    font-size: 0.95rem;
-  }
-`;
-
-const Price = styled.div`
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-top: 1rem;
-`;
-
-const HiddenFileInput = styled.input`
-  display: none;
-`;
-
-const CustomUploadLabel = styled.label`
-  display: inline-block;
-  background-color: transparent;
-  color: #ceff51;
-  border: 2px solid #ceff51;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 0.5rem;
-  text-align: center;
-  transition: all 0.25s ease;
-
-  &:hover {
-    background-color: #ceff51;
-    color: black;
   }
 `;

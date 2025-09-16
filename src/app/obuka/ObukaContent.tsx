@@ -134,9 +134,7 @@ const ObukaContent = () => {
 
       <TabContent role="tabpanel">
         {trainings.find((t) => t.id === activeTab)?.content}
-        <CustomButton onClick={() => registerForTraining()} disabled={activeTab == "lowlight" || activeTab == "pistol"}>
-          {activeTab == "lowlight" ? "COMING SOON" : "PRIJAVE ZATVORENE"}
-        </CustomButton>
+        <CustomButton onClick={() => registerForTraining()} disabled={activeTab == "lowlight"}>{activeTab == "lowlight" ? "COMING SOON" : "PRIJAVI SE"}</CustomButton>
       </TabContent>
 
     </ObukaPageContainer>

@@ -36,7 +36,7 @@ const trainings = [
         </ul>
 
         <p>Lokacija: Sportsko strelište Žuč</p>
-        <p>Datum: 27.09.2025. (Subota)</p>
+        <p>Datum: 11.10.2025. (Subota)</p>
         <p>Trajanje: 60 Minuta</p>
       </>
     ),
@@ -108,7 +108,7 @@ const ObukaContent = () => {
   const registerForTraining = async () => {
     if (activeTab === "pistol") {
       // navigate to prijava/pistol1
-      router.replace("/prijava/pistol1")
+      router.push("/prijava/pistol1")
     } else {
       return
     }
@@ -134,9 +134,8 @@ const ObukaContent = () => {
 
       <TabContent role="tabpanel">
         {trainings.find((t) => t.id === activeTab)?.content}
-        <CustomButton onClick={() => registerForTraining()} disabled={activeTab == "lowlight" || activeTab == "pistol"}>
-          {activeTab == "lowlight" ? "COMING SOON" : "PRIJAVE ZATVORENE"}
-        </CustomButton>      </TabContent>
+        <CustomButton onClick={() => registerForTraining()} disabled={activeTab == "lowlight"}>{activeTab == "lowlight" ? "COMING SOON" : "PRIJAVI SE"}</CustomButton>
+      </TabContent>
 
     </ObukaPageContainer>
   );

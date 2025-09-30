@@ -65,7 +65,7 @@ export default function Pistol1Signup() {
         name="registracija"
         encType="multipart/form-data"
       >
-        <h1>REGISTRACIJA ZA DELTA - PISTOL LEVEL 1</h1>
+        <h1>REGISTRACIJA ZA DELTA - PISTOL LEVEL 1 (11.10.2025.)</h1>
 
         {/* All your input fields remain the same... */}
         <CustomSignUpInputContainer>
@@ -90,12 +90,12 @@ export default function Pistol1Signup() {
         </CustomSignUpInputContainer>
         
         {/* --- NEW: Button now shows spinner and is disabled while loading --- */}
-        {/* <CustomSignUpButton type="submit" disabled={isLoading}>
+        <CustomSignUpButton type="submit" disabled={isLoading}>
           {isLoading ? <Spinner /> : "PRIJAVI SE"}
-        </CustomSignUpButton> */}
-         <CustomSignUpButton type="submit" disabled={true}> 
-          PRIJAVE ZATVORENE
         </CustomSignUpButton>
+         {/* <CustomSignUpButton type="submit" disabled={true}> 
+          PRIJAVE ZATVORENE
+        </CustomSignUpButton> */}
 
         {/* --- NEW: Status message box appears after submission attempt --- */}
         {submissionStatus !== 'idle' && (

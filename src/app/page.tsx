@@ -2,7 +2,7 @@
 
 import styled, { keyframes } from "styled-components";
 import Image from "next/image";
-import drillsimg from '@/../public/drills_img.jpeg'
+import drillsimg from '@/../public/drills_sharp.png'
 import onamaimg from '@/../public/onamaimg.jpg'
 import obukaImg from '@/../public/obukaimg.jpg'
 import registerImg from '@/../public/registerimg.png'

@@ -8,7 +8,7 @@ export default async function Pistol1Page() {
   const counts = await getSheetGroupCounts();
 
   // Default state
-  let groups = [
+  const groups = [
     { id: 1, label: "11:00 - 12:00", visible: true, full: false },
     { id: 2, label: "12:00 - 13:00", visible: true, full: false },
     { id: 3, label: "13:00 - 14:00", visible: false, full: false },

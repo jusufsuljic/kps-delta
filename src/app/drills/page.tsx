@@ -24,7 +24,7 @@ const drills = [
   },
   {
     id: 2,
-    title: "4C",
+    title: "C4",
     shootingStandard: "On signal draw and engage one circle with 1 RD under 1.50S.",
     startPosition: "LOADED PISTOL IN HOLSTER. HANDS NOT TOUCHING WEAPON.",
     distance: "PISTOL - 5 METERS, RIFLE - 10 METERS",

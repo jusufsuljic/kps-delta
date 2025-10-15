@@ -8,7 +8,7 @@ export default async function Pistol1Page() {
   const counts = await getSheetGroupCounts();
 
   // Default state
-  const groups = [
+  let groups = [
     { id: 1, label: "11:00 - 12:00", visible: true, full: false },
     { id: 2, label: "12:00 - 13:00", visible: true, full: false },
     { id: 3, label: "13:00 - 14:00", visible: false, full: false },
@@ -16,14 +16,21 @@ export default async function Pistol1Page() {
   ];
 
   // --- Compute visibility and full status ---
-  const total12 = (counts["1"] || 0) + (counts["2"] || 0);
-  const total123 = total12 + (counts["3"] || 0);
 
-  if (total12 >= 15) groups[2].visible = true;
-  if (total123 >= 30) groups[3].visible = true;
-
+  let fullGroups = 0;
   for (const group of groups) {
-    if ((counts[group.id.toString()] || 0) >= 20) group.full = true;
+    if ((counts[group.id.toString()] || 0) >= 10){
+        group.full = true;
+        fullGroups++;
+    } 
+  }
+
+  if(fullGroups >= 1){
+    groups[2].visible = true;
+  }
+  
+  if(fullGroups >= 2){
+    groups[3].visible = true;
   }
 
   return <Pistol1Signup groups={groups} />;

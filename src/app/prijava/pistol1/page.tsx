@@ -1,3 +1,6 @@
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import Pistol1Signup from "@/app/components/pistol1/pistol1signup";
 import { getSheetGroupCounts } from "@/app/lib/google";
 

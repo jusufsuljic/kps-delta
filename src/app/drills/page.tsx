@@ -16,7 +16,7 @@ const drills = [
   {
     id: 1,
     title: "3x3x3",
-    shootingStandard: "ON SIGNAL DRAW AND ENGAGE EACH RECTANGLE AND CIRCLE WITH 3 RDS.",
+    shootingStandard: "On signal draw and engage each rectangle and circle with 3 RDS.",
     startPosition: "LOADED PISTOL IN HOLSTER. HANDS NOT TOUCHING WEAPON.",
     distance: "PISTOL - 7 METERS, RIFLE - 10 METERS.",
     image: "/3x3_drill.png",
@@ -25,7 +25,7 @@ const drills = [
   {
     id: 2,
     title: "4C",
-    shootingStandard: "ON SIGNAL DRAW AND ENGAGE ONE CIRCLE WITH 1 RD UNDER 1.50S.",
+    shootingStandard: "On signal draw and engage one circle with 1 RD under 1.50S.",
     startPosition: "LOADED PISTOL IN HOLSTER. HANDS NOT TOUCHING WEAPON.",
     distance: "PISTOL - 5 METERS, RIFLE - 10 METERS",
     image: "/c4_drill.png",
@@ -55,7 +55,7 @@ export default function IDPAPage() {
 
             <ResourceContent>
               <h2>{res.title}</h2>
-              <p>SHOOTING STANDARD: {capitalizeFirstLetter(res.shootingStandard)}</p>
+              <p>SHOOTING STANDARD: {res.shootingStandard}</p>
               <p>START POSITION: {capitalizeFirstLetter(res.startPosition)}</p>
               <p>DISTANCE: {capitalizeFirstLetter(res.distance)}</p>
               <DownloadButton href={res.pdf} download>

@@ -2,7 +2,7 @@
 
 import styled, { keyframes } from "styled-components";
 import Image from "next/image";
-import idpaimg from '@/../public/idpaimg.jpg'
+import drillsimg from '@/../public/drills_img.jpeg'
 import onamaimg from '@/../public/onamaimg.jpg'
 import obukaImg from '@/../public/obukaimg.jpg'
 import registerImg from '@/../public/registerimg.png'
@@ -36,14 +36,14 @@ export default function Home() {
           <StyledText>OBUKA</StyledText>
         </MenuSelectorItem>
 
-        <MenuSelectorItem onClick={() => router.push("/idpa")}>
+        <MenuSelectorItem onClick={() => router.push("/drills")}>
           <ImageWrapper>
             <FloatingContainer delay="0.3s">
-              <StyledImage src={idpaimg} fill alt="IDPA" />
+              <StyledImage src={drillsimg} fill alt="DRILLS" />
             </FloatingContainer>
             <Overlay />
           </ImageWrapper>
-          <StyledText>IDPA</StyledText>
+          <StyledText>DRILLS</StyledText>
         </MenuSelectorItem>
         <MenuSelectorItem onClick={() => router.push("/o-nama")}>
           <ImageWrapper>

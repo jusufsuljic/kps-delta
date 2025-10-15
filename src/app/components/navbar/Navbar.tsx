@@ -63,8 +63,8 @@ const Navbar = () => {
         </MenuItem>
 
         <MenuItem>
-          <StyledLink href="/idpa" onClick={closeMenu}>
-            IDPA
+          <StyledLink href="/drills" onClick={closeMenu}>
+            DRILLS
           </StyledLink>
         </MenuItem>
         <MenuItem>
@@ -108,8 +108,8 @@ const Navbar = () => {
           </DropdownMenu>
         </MobileMenuItem>
         <MobileMenuItem>
-          <StyledLink href="/idpa" onClick={closeMenu}>
-            IDPA
+          <StyledLink href="/drills" onClick={closeMenu}>
+            DRILLS
           </StyledLink>
         </MobileMenuItem>
         <MobileMenuItem>

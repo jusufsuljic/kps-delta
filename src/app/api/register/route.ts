@@ -16,14 +16,14 @@ export async function POST(req: NextRequest) {
     try {
         const { drive, sheets } = getGoogleApisClient();
 
-        console.log("--- Received a new request. Starting to parse form... ---");
+        // console.log("--- Received a new request. Starting to parse form... ---");
         const { fields, files } = await parseForm(req);
 
-        // --- ADD THIS LOGGING BLOCK ---
-        console.log("✅ Form parsed successfully.");
-        console.log("Parsed Fields:", fields);
-        console.log("Parsed Files:", files);
-        console.log("Keys of the 'files' object:", Object.keys(files));
+        // // --- ADD THIS LOGGING BLOCK ---
+        // console.log("✅ Form parsed successfully.");
+        // console.log("Parsed Fields:", fields);
+        // console.log("Parsed Files:", files);
+        // console.log("Keys of the 'files' object:", Object.keys(files));
         // -----------------------------
 
         const imageFile = (files.fotografija as File[])?.[0]; // This line is likely the problem

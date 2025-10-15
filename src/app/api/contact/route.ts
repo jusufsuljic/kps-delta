@@ -12,7 +12,6 @@ export async function POST(req: NextRequest) {
         const email = formData.get('email') as string;
         const phone = formData.get('telefon') as string;
         const question = formData.get('pitanje') as string;
-        console.log(name, email, phone, question);
 
         // --- Server-Side Validation ---
         if (!name || !email || !phone || !question) {

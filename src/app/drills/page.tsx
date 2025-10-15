@@ -84,6 +84,7 @@ const DrillsPageContainer = styled.div`
   }
 `
 
+
 const PageHeader = styled.div`
   h1 {
     font-family: var(--font-mohave);
@@ -99,32 +100,40 @@ const ResourceGrid = styled.div`
 
 const ResourceCard = styled.div`
   display: flex;
-  gap: 2rem;
+  flex-direction: column; // stack image + content vertically
   background-color: #1a1a1a;
   border-radius: 16px;
-  padding: 1.5rem;
-  align-items: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  padding: 0; // remove padding from card itself
+  overflow: hidden; // ensures rounded corners clip the image
 
-  @media screen and (max-width: 767px) {
-    flex-direction: column;
-    text-align: center;
-    gap: 1.25rem;
+  @media screen and (min-width: 768px) {
+    flex-direction: row; // desktop: image left, content right
+    padding: 1.5rem;     // card padding only applies to desktop row layout
+    gap: 2rem;
+    align-items: center;
   }
 `
 
+
 const ImageWrapper = styled.div`
-  flex: 1;
-  min-width: 350px;
+  width: 100%;
+
   img {
     width: 100%;
     height: auto;
-    border-radius: 10px;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media screen and (min-width: 768px) {
+    flex: 1;
+    min-width: 350px;
+    border-radius: 10px; // optional on desktop
   }
 `
 
 const ResourceContent = styled.div`
-  flex: 2;
+  padding: 1.5rem; // content padding inside card
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -140,6 +149,11 @@ const ResourceContent = styled.div`
     color: #ddd;
     margin-bottom: 1.25rem;
     line-height: 1.5;
+  }
+
+  @media screen and (min-width: 768px) {
+    flex: 2;
+    padding: 0; // on desktop, card padding handles spacing
   }
 `
 

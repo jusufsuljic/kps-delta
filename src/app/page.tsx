@@ -8,6 +8,21 @@ import obukaImg from '@/../public/obukaimg.jpg'
 import registerImg from '@/../public/registerimg.png'
 import { useRouter } from "next/navigation";
 
+interface MenuSelectorItemProps {
+  index: number;
+}
+
+const fadeInUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 export default function Home() {
 
   const router = useRouter()
@@ -15,7 +30,7 @@ export default function Home() {
   return (
     <HomePageContainer>
       <MenuSelector>
-        <MenuSelectorItem onClick={() => router.push("/prijava")}>
+        <MenuSelectorItem index={0} onClick={() => router.push("/prijava")}>
           <ImageWrapper>
             <FloatingContainer delay="0s">
               <StyledImage src={registerImg} fill alt="UČLANI SE" />
@@ -26,7 +41,7 @@ export default function Home() {
         </MenuSelectorItem>
 
 
-        <MenuSelectorItem onClick={() => router.push("/obuka")}>
+        <MenuSelectorItem index={1} onClick={() => router.push("/obuka")}>
           <ImageWrapper>
             <FloatingContainer delay="0.2s">
               <StyledImage src={obukaImg} fill alt="OBUKA" />
@@ -36,7 +51,7 @@ export default function Home() {
           <StyledText>OBUKA</StyledText>
         </MenuSelectorItem>
 
-        <MenuSelectorItem onClick={() => router.push("/drills")}>
+        <MenuSelectorItem index={2} onClick={() => router.push("/drills")}>
           <ImageWrapper>
             <FloatingContainer delay="0.3s">
               <StyledImage src={drillsimg} fill alt="DRILLS" />
@@ -45,7 +60,7 @@ export default function Home() {
           </ImageWrapper>
           <StyledText>DRILLS</StyledText>
         </MenuSelectorItem>
-        <MenuSelectorItem onClick={() => router.push("/o-nama")}>
+        <MenuSelectorItem index={3} onClick={() => router.push("/o-nama")}>
           <ImageWrapper>
             <FloatingContainer delay="0.4s">
               <StyledImage src={onamaimg} fill alt="O NAMA" />
@@ -123,7 +138,7 @@ const Overlay = styled.div`
   transition: opacity 0.3s ease;
 `;
 
-const MenuSelectorItem = styled.div`
+const MenuSelectorItem = styled.div<MenuSelectorItemProps>`
   position: relative;
   width: 20rem;
   height: 100%;
@@ -133,6 +148,9 @@ const MenuSelectorItem = styled.div`
   justify-content: center;
   flex-direction: column;
   overflow: hidden;
+  opacity: 0;
+  animation: ${fadeInUp} 0.8s ease forwards;
+  animation-delay: ${({ index }: { index?: number }) => `${(index ?? 0) * 0.15}s`};
 
   &:hover ${Overlay} {
     opacity: 0;
@@ -147,16 +165,6 @@ const MenuSelectorItem = styled.div`
 
   @media screen and (max-width: 767px) {
     width: auto;
-  }
-
-  /* Laptops (typical MacBook, ~1024–1366 CSS px) */
-  @media (min-width: 1024px) and (max-width: 1366px) {
-    width: 15rem;
-  }
-
-  /* Large desktops / monitors */
-  @media (min-width: 1370px) {
-    width: 20rem;
   }
 `;
 

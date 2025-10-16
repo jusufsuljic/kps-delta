@@ -73,7 +73,7 @@ export default function IDPAPage() {
 const DrillsPageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 2rem 20rem;
+  padding: 1rem 20rem;
   font-size: 1rem;
   gap: 2rem;
   @media screen and (max-width: 1200px) {
@@ -113,7 +113,6 @@ const ResourceCard = styled.div`
     align-items: center;
   }
 `
-
 
 const ImageWrapper = styled.div`
   width: 100%;
@@ -159,20 +158,15 @@ const ResourceContent = styled.div`
 
 const DownloadButton = styled.a`
   display: inline-block;
-  background-color: #ceff51;
+  background-color: #CEFF51;
   color: #000;
   font-family: var(--font-mohave);
   font-weight: bold;
   font-size: 1.1rem;
   padding: 0.75rem 1.5rem;
-  border-radius: 8px;
   text-decoration: none;
   text-align: center;
   transition: all 0.2s ease;
-
-  &:hover {
-    background-color: #dfff71;
-  }
 
   @media screen and (max-width: 767px) {
     align-self: center;

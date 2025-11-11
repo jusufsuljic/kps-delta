@@ -17,7 +17,7 @@ const drills = [
     id: 1,
     title: "3x3x3",
     shootingStandard: "On signal draw and engage each rectangle and circle with 3 RDS.",
-    startPosition: "LOADED PISTOL IN HOLSTER. HANDS NOT TOUCHING WEAPON.",
+    startPosition: "Loaded pistol in holster. Hands not touching weapon.",
     distance: "PISTOL - 7 METERS, RIFLE - 10 METERS.",
     image: "/3x3_drill.png",
     pdf: "/Delta_3x3.pdf",
@@ -26,10 +26,19 @@ const drills = [
     id: 2,
     title: "C4",
     shootingStandard: "On signal draw and engage one circle with 1 RD under 1.50S.",
-    startPosition: "LOADED PISTOL IN HOLSTER. HANDS NOT TOUCHING WEAPON.",
+    startPosition: "Loaded pistol in holster. Hands not touching weapon.",
     distance: "PISTOL - 5 METERS, RIFLE - 10 METERS",
     image: "/c4_drill.png",
     pdf: "/Delta_C4.pdf",
+  },
+  {
+    id: 3,
+    title: "3R3",
+    shootingStandard: "On signal draw and engage either circle with 3 RDS. Reload and immediately engage the other circle with 3 RDS.",
+    startPosition: "Loaded pistol in holster. Hands not touching weapon.",
+    distance: "PISTOL - 5 METERS, RIFLE - 10 METERS",
+    image: "/3R3_drill.png",
+    pdf: "/Delta_3R3.pdf",
   },
 ]
 
@@ -56,7 +65,7 @@ export default function IDPAPage() {
             <ResourceContent>
               <h2>{res.title}</h2>
               <p>SHOOTING STANDARD: {res.shootingStandard}</p>
-              <p>START POSITION: {capitalizeFirstLetter(res.startPosition)}</p>
+              <p>START POSITION: {res.startPosition}</p>
               <p>DISTANCE: {capitalizeFirstLetter(res.distance)}</p>
               <DownloadButton href={res.pdf} download>
                 PREUZMI PDF

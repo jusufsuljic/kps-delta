@@ -18,9 +18,11 @@ export default async function Pistol1Page() {
   // --- Compute visibility and full status ---
 
   let fullGroups = 0;
+  let totalCount = 0;
   for (const group of groups) {
     if ((counts[group.id.toString()] || 0) >= 10){
         group.full = true;
+        totalCount += counts[group.id.toString()]
         fullGroups++;
     } 
   }
@@ -29,7 +31,7 @@ export default async function Pistol1Page() {
     groups[2].visible = true;
   }
   
-  if(fullGroups >= 2){
+  if(fullGroups >= 3 && totalCount >= 30){
     groups[3].visible = true;
   }
 

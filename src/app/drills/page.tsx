@@ -25,7 +25,7 @@ const drills = [
   {
     id: 2,
     title: "C4",
-    shootingStandard: "On signal draw and engage one circle with 1 RD under 1.50S.",
+    shootingStandard: "On signal draw and engage one circle with 1 RD under 1.50 S.",
     startPosition: "Loaded pistol in holster. Hands not touching weapon.",
     distance: "PISTOL - 5 METERS, RIFLE - 10 METERS",
     image: "/c4_drill.png",
@@ -39,6 +39,15 @@ const drills = [
     distance: "PISTOL - 5 METERS, RIFLE - 10 METERS",
     image: "/3R3_drill.png",
     pdf: "/Delta_3R3.pdf",
+  },
+  {
+    id: 4,
+    title: "Double5",
+    shootingStandard: "On signal draw and engage circle with 5 RDS under 5 S.",
+    startPosition: "Loaded pistol in holster. Hands not touching weapon.",
+    distance: "PISTOL - 10 METERS, RIFLE - 20 METERS",
+    image: "/Double5Drill.png",
+    pdf: "/Double5Drill.pdf",
   },
 ]
 

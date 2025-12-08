@@ -55,7 +55,6 @@ const trainings = [
           Broj učesnika je ograničen na maksimalno 10, kako bismo osigurali
           kvalitetnu i sigurnu obuku za svakog polaznika.
         </p>
-
         <p><strong>Šta je potrebno?</strong></p>
         <ul>
           <li>
@@ -77,14 +76,13 @@ const trainings = [
         </ul>
 
         <p>Lokacija: Sportsko strelište Žuč</p>
-        <p>Trajanje: 70 Minuta</p>
-        {/* <p>Cijena kotizacije 80 KM</p> */}
+        <p>Trajanje: 17:00 - 20:00</p>
+        <p>Cijena kotizacije 80 KM</p>
       </>
     ),
     url: "",
   },
 ];
-
 
 
 const ObukaContent = () => {
@@ -109,6 +107,9 @@ const ObukaContent = () => {
     if (activeTab === "pistol") {
       // navigate to prijava/pistol1
       router.push("/prijava/pistol1")
+    } else if (activeTab === "lowlight") {
+      router.push("/prijava/lowlight")
+
     } else {
       return
     }
@@ -134,7 +135,7 @@ const ObukaContent = () => {
 
       <TabContent role="tabpanel">
         {trainings.find((t) => t.id === activeTab)?.content}
-        <CustomButton onClick={() => registerForTraining()} disabled={activeTab == "lowlight"}>{activeTab == "lowlight" ? "COMING SOON" : "PRIJAVI SE"}</CustomButton>
+        <CustomButton onClick={() => registerForTraining()} disabled={activeTab == "pistol"}>{activeTab == "lowlight" ? "PRIJAVI SE" : "PRIJAVI SE"}</CustomButton>
       </TabContent>
 
     </ObukaPageContainer>

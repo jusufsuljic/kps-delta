@@ -75,3 +75,19 @@ export async function getSheetGroupCounts() {
 
     return counts; // e.g. { "1": 14, "2": 20, "3": 5 }
 }
+
+export async function getRowCountForSheet(sheetName: string, endCol: string) {
+    const { sheets } = getGoogleApisClient();
+
+    const spreadsheetId = process.env.GOOGLE_SHEET_ID!;
+    const range = `${sheetName}!A2:${endCol}`; // adjust based on your sheet layout (skip header row)
+
+    const response = await sheets.spreadsheets.values.get({
+        spreadsheetId,
+        range,
+    });
+
+    const rows = response.data.values || [];
+
+    return rows.length;
+}

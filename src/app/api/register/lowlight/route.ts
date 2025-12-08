@@ -1,6 +1,6 @@
 // app/api/register/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { getGoogleApisClient } from "@/app/lib/google";
+import { getGoogleApisClient, getRowCountForSheet } from "@/app/lib/google";
 import { parseForm } from "../../utils";
 
 export const config = {
@@ -11,6 +11,10 @@ export const config = {
 
 export async function POST(req: NextRequest) {
     try {
+        const totalCount = await getRowCountForSheet('prijave_lowlight', 'E')
+        if (totalCount >= 10){
+            throw new Error("Svi termini su popunjeni.")
+        }
         const { sheets } = getGoogleApisClient();
 
         // console.log("--- Received a new request. Starting to parse form... ---");

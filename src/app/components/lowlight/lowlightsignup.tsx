@@ -3,7 +3,11 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function LowlightSignup() {
+type LowlightSignupProps = {
+    totalCount: number
+}
+
+export default function LowlightSignup({ totalCount }: LowlightSignupProps) {
     const [isLoading, setIsLoading] = useState(false);
     const [submissionStatus, setSubmissionStatus] = useState<'idle' | 'success' | 'error'>('idle');
     const [submissionMessage, setSubmissionMessage] = useState('');
@@ -77,7 +81,7 @@ export default function LowlightSignup() {
                     <input name="brojLicneKarte" required />
                 </CustomSignUpInputContainer>
 
-                <CustomSignUpButton type="submit" disabled={isLoading}>
+                <CustomSignUpButton type="submit" disabled={isLoading || totalCount >= 10}>
                     {isLoading ? <Spinner /> : "PRIJAVI SE"}
                 </CustomSignUpButton>
 

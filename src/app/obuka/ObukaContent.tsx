@@ -36,7 +36,7 @@ const trainings = [
         </ul>
 
         <p>Lokacija: Sportsko strelište Žuč</p>
-        <p>Datum: 29.11.2025. (Subota)</p>
+        <p>Datum: 21.02.2026. (Subota)</p>
         <p>Trajanje: 60 Minuta</p>
       </>
     ),
@@ -135,7 +135,7 @@ const ObukaContent = () => {
 
       <TabContent role="tabpanel">
         {trainings.find((t) => t.id === activeTab)?.content}
-        <CustomButton onClick={() => registerForTraining()} disabled={activeTab == "pistol"}>{activeTab == "lowlight" ? "PRIJAVI SE" : "PRIJAVI SE"}</CustomButton>
+        <CustomButton onClick={() => registerForTraining()} disabled={false}>{activeTab == "lowlight" ? "PRIJAVI SE" : "PRIJAVI SE"}</CustomButton>
       </TabContent>
 
     </ObukaPageContainer>

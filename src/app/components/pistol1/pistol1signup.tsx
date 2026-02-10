@@ -61,7 +61,7 @@ export default function Pistol1Signup({ groups }: { groups: Group[] }) {
     return (
         <SignUpPageContainer>
             <SignUpForm onSubmit={handleSubmit}>
-                <h1>REGISTRACIJA ZA DELTA - PISTOL LEVEL 1 (29.11.2025.)</h1>
+                <h1>REGISTRACIJA ZA DELTA - PISTOL LEVEL 1 (21.02.2026.)</h1>
 
                 <CustomSignUpInputContainer>
                     <label>Ime</label>

@@ -37,7 +37,7 @@ const Footer = () => {
                 <ContactDetails>
                     <span><a href="mailto:kpsdelta@hotmail.com">kpsdelta@hotmail.com <br></br></a></span>
                     <span><a href="tel:+38761032285">+387 61 032 285<br></br></a></span>
-                    <span>KPS Delta © 2025<br></br></span>
+                    <span>KPS Delta © 2026<br></br></span>
                     <span>71000 SARAJEVO<br></br></span>
                 </ContactDetails>
             </BottomContainer>

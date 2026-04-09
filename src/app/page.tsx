@@ -26,6 +26,10 @@ const fadeInUp = keyframes`
 export default function Home() {
 
   const router = useRouter()
+  const leaderboardUrl =
+    process.env.NODE_ENV === "production"
+      ? "https://app.kpsdelta.ba"
+      : "https://kpsdeltaapp.netlify.app";
 
   return (
     <HomePageContainer>
@@ -60,14 +64,14 @@ export default function Home() {
           </ImageWrapper>
           <StyledText>DRILLS</StyledText>
         </MenuSelectorItem>
-        <MenuSelectorItem index={3} onClick={() => router.push("/o-nama")}>
+        <MenuSelectorItem index={3} onClick={() => window.location.assign(leaderboardUrl)}>
           <ImageWrapper>
             <FloatingContainer delay="0.4s">
-              <StyledImage src={onamaimg} fill alt="O NAMA" />
+              <StyledImage src={onamaimg} fill alt="LEADERBOARD" />
             </FloatingContainer>
             <Overlay />
           </ImageWrapper>
-          <StyledText>O NAMA</StyledText>
+          <StyledText>LEADERBOARD</StyledText>
         </MenuSelectorItem>
 
       </MenuSelector>
@@ -192,7 +196,6 @@ const FloatingContainer = styled.div<{ delay?: string }>`
   animation: ${floatAnim} 4s ease-in-out infinite;
   animation-delay: ${({ delay }) => delay || '0s'};
 `;
-
 
 
 

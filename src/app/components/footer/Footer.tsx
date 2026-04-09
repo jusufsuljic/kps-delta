@@ -13,6 +13,7 @@ const Footer = () => {
         <FooterContainer>
             <TopContainer>
                 <a target="_blank" href="https://www.freeprivacypolicy.com/live/41743ff7-e72b-4a49-a56d-2b4d9e7bc7f8"><span>PRAVILA O PRIVATNOSTI</span></a>
+                <a href="/o-nama"><span>O NAMA</span></a>
                 <a href="/kontakt"><span>KONTAKT</span></a>
             </TopContainer>
             <MidContainer>

@@ -15,11 +15,16 @@ interface MenuSelectorItemProps {
 const fadeInUp = keyframes`
   from {
     opacity: 0;
-    transform: translateY(20px);
+    filter: blur(8px) contrast(0.85);
+    transform: translate3d(0, 18px, 0) scale(0.985);
+  }
+  55% {
+    filter: blur(0) contrast(1.08);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    filter: blur(0) contrast(1);
+    transform: translate3d(0, 0, 0) scale(1);
   }
 `;
 
@@ -30,6 +35,7 @@ export default function Home() {
     process.env.NODE_ENV === "production"
       ? "https://app.kpsdelta.ba"
       : "https://kpsdeltaapp.netlify.app";
+  const landingImageSizes = "(max-width: 767px) 100vw, (min-width: 1300px) 280px, 320px";
 
   return (
     <HomePageContainer>
@@ -37,7 +43,7 @@ export default function Home() {
         <MenuSelectorItem index={0} onClick={() => router.push("/prijava")}>
           <ImageWrapper>
             <FloatingContainer delay="0s">
-              <StyledImage src={registerImg} fill alt="UČLANI SE" />
+              <StyledImage src={registerImg} fill alt="UČLANI SE" sizes={landingImageSizes} priority />
             </FloatingContainer>
             <Overlay />
           </ImageWrapper>
@@ -48,7 +54,7 @@ export default function Home() {
         <MenuSelectorItem index={1} onClick={() => router.push("/obuka")}>
           <ImageWrapper>
             <FloatingContainer delay="0.2s">
-              <StyledImage src={obukaImg} fill alt="OBUKA" />
+              <StyledImage src={obukaImg} fill alt="OBUKA" sizes={landingImageSizes} priority />
             </FloatingContainer>
             <Overlay />
           </ImageWrapper>
@@ -58,7 +64,7 @@ export default function Home() {
         <MenuSelectorItem index={2} onClick={() => router.push("/drills")}>
           <ImageWrapper>
             <FloatingContainer delay="0.3s">
-              <StyledImage src={drillsimg} fill alt="DRILLS" />
+              <StyledImage src={drillsimg} fill alt="DRILLS" sizes={landingImageSizes} priority />
             </FloatingContainer>
             <Overlay />
           </ImageWrapper>
@@ -67,7 +73,7 @@ export default function Home() {
         <MenuSelectorItem index={3} onClick={() => window.location.assign(leaderboardUrl)}>
           <ImageWrapper>
             <FloatingContainer delay="0.4s">
-              <StyledImage src={onamaimg} fill alt="LEADERBOARD" />
+              <StyledImage src={onamaimg} fill alt="LEADERBOARD" sizes={landingImageSizes} priority />
             </FloatingContainer>
             <Overlay />
           </ImageWrapper>
@@ -153,8 +159,9 @@ const MenuSelectorItem = styled.div<MenuSelectorItemProps>`
   flex-direction: column;
   overflow: hidden;
   opacity: 0;
-  animation: ${fadeInUp} 0.8s ease forwards;
-  animation-delay: ${({ index }: { index?: number }) => `${(index ?? 0) * 0.15}s`};
+  animation: ${fadeInUp} 0.48s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: ${({ index }: { index?: number }) => `${(index ?? 0) * 0.09}s`};
+  will-change: transform, opacity, filter;
 
   &:hover ${Overlay} {
     opacity: 0;
@@ -196,7 +203,5 @@ const FloatingContainer = styled.div<{ delay?: string }>`
   animation: ${floatAnim} 4s ease-in-out infinite;
   animation-delay: ${({ delay }) => delay || '0s'};
 `;
-
-
 
 

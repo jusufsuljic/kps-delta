@@ -2,9 +2,9 @@
 
 import styled, { keyframes } from "styled-components";
 import Image from "next/image";
-import drillsimg from '@/../public/drills_sharp.png'
 import onamaimg from '@/../public/onamaimg.jpg'
 import obukaImg from '@/../public/obukaimg.jpg'
+import rangeDayImg from '@/../public/shooting_range.jpg'
 import registerImg from '@/../public/registerimg.png'
 import { useRouter } from "next/navigation";
 
@@ -61,14 +61,14 @@ export default function Home() {
           <StyledText>OBUKA</StyledText>
         </MenuSelectorItem>
 
-        <MenuSelectorItem index={2} onClick={() => router.push("/drills")}>
+        <MenuSelectorItem index={2} onClick={() => router.push("/range-day")}>
           <ImageWrapper>
             <FloatingContainer delay="0.3s">
-              <StyledImage src={drillsimg} fill alt="DRILLS" sizes={landingImageSizes} priority />
+              <StyledImage src={rangeDayImg} fill alt="RANGE DAY" sizes={landingImageSizes} priority />
             </FloatingContainer>
             <Overlay />
           </ImageWrapper>
-          <StyledText>DRILLS</StyledText>
+          <StyledText>RANGE DAY</StyledText>
         </MenuSelectorItem>
         <MenuSelectorItem index={3} onClick={() => window.location.assign(leaderboardUrl)}>
           <ImageWrapper>
@@ -203,5 +203,4 @@ const FloatingContainer = styled.div<{ delay?: string }>`
   animation: ${floatAnim} 4s ease-in-out infinite;
   animation-delay: ${({ delay }) => delay || '0s'};
 `;
-
 

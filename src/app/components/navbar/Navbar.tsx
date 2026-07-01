@@ -48,6 +48,11 @@ const Navbar = () => {
           </StyledLink>
         </MenuItem>
         <MenuItem>
+          <StyledLink href="/range-day" onClick={closeMenu}>
+            RANGE DAY
+          </StyledLink>
+        </MenuItem>
+        <MenuItem>
           <DropdownToggle onClick={toggleTrening} aria-expanded={treningOpen}>
             OBUKA
             <ArrowDown open={treningOpen} />
@@ -91,6 +96,11 @@ const Navbar = () => {
         <MobileMenuItem>
           <StyledLink href="/prijava" onClick={closeMenu}>
             PRIJAVA
+          </StyledLink>
+        </MobileMenuItem>
+        <MobileMenuItem>
+          <StyledLink href="/range-day" onClick={closeMenu}>
+            RANGE DAY
           </StyledLink>
         </MobileMenuItem>
         <MobileMenuItem>
@@ -178,7 +188,8 @@ const MenuWrapper = styled.ul`
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 10rem;
+  justify-content: space-between;
+  gap: clamp(2rem, 5vw, 6rem);
   list-style-type: none;
 
   @media screen and (max-width: 767px) {
@@ -328,6 +339,7 @@ const DropdownLink = styled(Link)`
 
 // Normal menu links styling
 const StyledLink = styled(Link)`
+  position: relative;
   font-size: 1.2rem;
   font-weight: 700;
   color: #ceff51;

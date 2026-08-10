@@ -36,7 +36,7 @@ const trainings = [
         </ul>
 
         <p>Lokacija: Sportsko strelište Žuč</p>
-        <p>Datum: 08.08.2026. (Subota)</p>
+        <p>Datum: 22.08.2026. (Subota)</p>
         <p>Trajanje: 60 Minuta</p>
       </>
     ),

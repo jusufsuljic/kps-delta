@@ -13,6 +13,7 @@ export default async function Pistol1Page() {
     { id: 2, label: "12:00 - 13:00", visible: true, full: false },
     { id: 3, label: "13:00 - 14:00", visible: false, full: false },
     { id: 4, label: "14:00 - 15:00", visible: false, full: false },
+    { id: 5, label: "15:00 - 16:00", visible: false, full: false },
   ];
 
   // --- Compute visibility and full status ---
@@ -33,6 +34,10 @@ export default async function Pistol1Page() {
   
   if(fullGroups >= 3 && totalCount >= 30){
     groups[3].visible = true;
+  }
+
+  if (groups.slice(0, 4).every((group) => group.full)) {
+    groups[4].visible = true;
   }
 
   return <Pistol1Signup groups={groups} />;

@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },        // default favicon
-      { url: "/favicon-32x32.png", sizes: "32x32" },
-      { url: "/favicon-16x16.png", sizes: "16x16" },
+      { url: "/favicon-32x32.ico", sizes: "32x32" },
+      { url: "/favicon-16x16.ico", sizes: "16x16" },
     ],
   },
 };
@@ -30,15 +30,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${mohave.className}`}>
+    <html lang="bs" className={`${mohave.className} ${mohave.variable}`}>
       <body style={{
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100vh',
       }}>
+        <a href="#main-content" className="skip-link">Preskoči na sadržaj</a>
         <StyledComponentsRegistry>
           <Navbar />
-          <main style={{ flex: 1 }}>
+          <main id="main-content" tabIndex={-1} style={{ flex: 1 }}>
             {children}
           </main>
           <Footer />

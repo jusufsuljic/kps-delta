@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import styled from "styled-components";
+import { SignUpPageContainer, SignUpForm, CustomSignUpInputContainer, CustomSignUpButton } from "../ui/FormStyles";
 
 type LowlightSignupProps = {
     totalCount: number
@@ -57,28 +58,28 @@ export default function LowlightSignup({ totalCount }: LowlightSignupProps) {
                 <h1>REGISTRACIJA ZA DELTA - LOW LIGHT (27.12.2025.)</h1>
 
                 <CustomSignUpInputContainer>
-                    <label>Ime</label>
-                    <input name="ime" required />
+                    <label htmlFor="ime">Ime</label>
+                    <input id="ime" name="ime" required />
                 </CustomSignUpInputContainer>
 
                 <CustomSignUpInputContainer>
-                    <label>Prezime</label>
-                    <input name="prezime" required />
+                    <label htmlFor="prezime">Prezime</label>
+                    <input id="prezime" name="prezime" required />
                 </CustomSignUpInputContainer>
 
                 <CustomSignUpInputContainer>
-                    <label>Kontakt telefon</label>
-                    <input name="kontaktTelefon" required />
+                    <label htmlFor="kontaktTelefon">Kontakt telefon</label>
+                    <input id="kontaktTelefon" name="kontaktTelefon" required />
                 </CustomSignUpInputContainer>
 
                 <CustomSignUpInputContainer>
-                    <label>Email</label>
-                    <input type="email" name="email" required />
+                    <label htmlFor="email">Email</label>
+                    <input id="email" type="email" name="email" required />
                 </CustomSignUpInputContainer>
 
                 <CustomSignUpInputContainer>
-                    <label>Broj lične karte</label>
-                    <input name="brojLicneKarte" required />
+                    <label htmlFor="brojLicneKarte">Broj lične karte</label>
+                    <input id="brojLicneKarte" name="brojLicneKarte" required />
                 </CustomSignUpInputContainer>
 
                 <CustomSignUpButton type="submit" disabled={isLoading || totalCount >= 10}>
@@ -86,7 +87,7 @@ export default function LowlightSignup({ totalCount }: LowlightSignupProps) {
                 </CustomSignUpButton>
 
                 {submissionStatus !== 'idle' && (
-                    <SubmissionStatusBox status={submissionStatus}>
+                    <SubmissionStatusBox role="status" $status={submissionStatus}>
                         {submissionMessage}
                     </SubmissionStatusBox>
                 )}
@@ -95,80 +96,19 @@ export default function LowlightSignup({ totalCount }: LowlightSignupProps) {
     );
 }
 
-// --- Styled Components (same as before, unchanged) ---
-const SignUpPageContainer = styled.div`
-  display: flex;
-  gap: 1rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem 20rem;
-  @media screen and (max-width: 767px) {
-    padding: 2rem;
-  }
-`;
-
-const SignUpForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 1rem;
-`;
-
-const CustomSignUpInputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  input {
-    background-color: #1a1a1a;
-    color: #fff;
-    height: 2.5rem;
-    width: 100%;
-    border-radius: 6px;
-    padding-left: 1rem;
-    border: 2px solid gray;
-    transition: border-color 0.2s ease;
-
-    &:focus {
-      outline: none;
-      border-color: #CEFF51;
-    }
-  }
-`;
-
-const SubmissionStatusBox = styled.div<{ status: 'success' | 'error' }>`
+const SubmissionStatusBox = styled.div<{ $status: 'success' | 'error' }>`
   padding: 1rem;
   margin-top: 1rem;
-  border-radius: 8px;
+  border-radius: 0;
   text-align: center;
   font-weight: 500;
   color: #fff;
-  background-color: ${({ status }) => (status === 'success' ? '#28a745' : '#dc3545')};
+  background-color: ${({ $status }) => ($status === 'success' ? '#28a745' : '#dc3545')};
   animation: fadeIn 0.5s ease;
 
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
-  }
-`;
-
-const CustomSignUpButton = styled.button`
-  background-color: #CEFF51;
-  border: none;
-  color: #000;
-  font-family: var(--font-mohave);
-  font-size: 1.5rem;
-  font-weight: bold;
-  height: 4rem;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: opacity 0.2s ease;
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.65;
   }
 `;
 

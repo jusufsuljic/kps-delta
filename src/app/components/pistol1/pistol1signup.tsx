@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import styled from "styled-components";
-import { SignUpPageContainer, SignUpForm, CustomSignUpInputContainer, CustomSignUpButton } from "../ui/FormStyles";
+import { SignUpPageContainer, SignUpForm, CustomSignUpInputContainer, CustomSignUpButton, Spinner, StatusBox as SubmissionStatusBox } from "../ui/FormStyles";
 
 type Group = {
     id: number;
@@ -103,7 +103,8 @@ export default function Pistol1Signup({ groups }: { groups: Group[] }) {
                                     disabled={group.full}
                                     onClick={() => !group.full && setSelectedGroup(group)}
                                 >
-                                    {group.label}
+                                    <strong>{group.label}</strong>
+                                    <small>{group.full ? 'POPUNJENO' : selectedGroup?.id === group.id ? 'ODABRANO' : 'SLOBODNO'}</small>
                                 </TimeframeBox>
                             ))}
                     </TimeframeOptions>
@@ -126,70 +127,31 @@ export default function Pistol1Signup({ groups }: { groups: Group[] }) {
 const TimeframeContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 10px;
+  > label { font-size: 1.05rem; color: #c7cbbf; }
 `;
 
 const TimeframeOptions = styled.div`
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 10px;
 `;
 
 const TimeframeBox = styled.button<{ $selected: boolean }>`
-  background-color: ${({ $selected }) => ($selected ? '#CEFF51' : 'transparent')};
-  color: ${({ $selected }) => ($selected ? '#000' : '#fff')};
-  font-family: var(--font-mohave);
-  font-weight: 600;
-  padding: 0.75rem 1.25rem;
-  border-radius: 0;
-  border: 2px solid #777;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 1rem;
-
-  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
-  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
-
-  &:hover {
-    border-color: ${({ disabled }) => (disabled ? '#777' : '#CEFF51')};
-    background-color: ${({ $selected, disabled }) =>
-      disabled ? ($selected ? '#BBD94A' : 'transparent') : $selected ? '#CEFF51' : 'transparent'};
-  }
-
+  display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  padding: 14px 16px; min-height: 76px; text-align: left;
+  font-family: var(--font-mohave), sans-serif;
+  background: ${({ $selected }) => ($selected ? 'var(--accent)' : '#0e100d')};
+  color: ${({ $selected }) => ($selected ? '#101110' : 'var(--foreground)')};
+  border: 1px solid ${({ $selected }) => ($selected ? 'var(--accent)' : 'var(--border-strong)')};
+  border-radius: 0; cursor: pointer;
+  small { font-size: 0.85rem; letter-spacing: 0.1em; }
+  strong { font-size: 1.45rem; font-weight: 600; line-height: 1.2; }
+  small { color: ${({ $selected }) => ($selected ? '#101110' : 'var(--accent)')}; }
+  &:hover:not(:disabled) { border-color: var(--accent); }
   &:disabled {
-    background-color: ${({ $selected }) => ($selected ? '#BBD94A' : 'transparent')};
-    border-color: #555;
-    cursor: not-allowed;
-  }
-`;
-
-const Spinner = styled.div`
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border-left-color: #000;
-  animation: spin 1s ease infinite;
-  margin: auto;
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-`;
-
-const SubmissionStatusBox = styled.div<{ $status: 'success' | 'error' }>`
-  padding: 1rem;
-  margin-top: 1rem;
-  border-radius: 0;
-  text-align: center;
-  font-weight: 500;
-  color: #fff;
-  background-color: ${({ $status }) => ($status === 'success' ? '#28a745' : '#dc3545')};
-  animation: fadeIn 0.5s ease;
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    cursor: not-allowed; opacity: 0.45;
+    strong { text-decoration: line-through; }
+    small { color: var(--danger); }
   }
 `;

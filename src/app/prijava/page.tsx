@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import styled from "styled-components";
-import { SignUpPageContainer, SignUpForm, CustomSignUpInputContainer, CustomSignUpButton } from "../components/ui/FormStyles";
+import { SignUpPageContainer, SignUpForm, CustomSignUpInputContainer, CustomSignUpButton, Spinner, StatusBox as SubmissionStatusBox } from "../components/ui/FormStyles";
 
 export default function SignUp() {
   // Existing state
@@ -199,46 +199,7 @@ export default function SignUp() {
   );
 }
 
-const Spinner = styled.div`
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border-left-color: #000;
-  animation: spin 1s ease infinite;
-  margin: auto;
 
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-`;
-
-const SubmissionStatusBox = styled.div<{ $status: 'success' | 'error' }>`
-  padding: 1rem;
-  margin-top: 1rem;
-  border-radius: 0;
-  text-align: center;
-  font-weight: 500;
-  color: #fff;
-  background-color: ${({ $status }) => ($status === 'success' ? '#28a745' : '#dc3545')};
-  animation: fadeIn 0.5s ease;
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-`;
 
 const CustomRadioGroup = styled.div`
   display: flex;
@@ -251,11 +212,14 @@ const CustomRadioGroup = styled.div`
   input[type='radio']:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 4px; }
 
   label {
-    min-height: 44px;
-    min-width: 48px;
-    text-align: center;
-    padding: 0.5rem 1rem;
-    border: 2px solid gray;
+    min-height: 50px;
+    min-width: 72px;
+    display: grid;
+    place-items: center;
+    padding: 0.5rem 1.25rem;
+    font-size: 1.1rem;
+    background: #0e100d;
+    border: 1px solid var(--border-strong);
     border-radius: 0;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -327,12 +291,13 @@ const CustomUploadLabel = styled.label`
   display: inline-block;
   background-color: transparent;
   color: #ceff51;
-  border: 2px solid #ceff51;
-  padding: 0.5rem 1rem;
+  border: 1px dashed #ceff51;
+  padding: 0.75rem 1rem;
   border-radius: 0;
   cursor: pointer;
   margin-top: 0;
-  min-height: 48px;
+  min-height: 50px;
+  font-size: 1.05rem;
   overflow-wrap: anywhere;
   text-align: center;
   transition: all 0.25s ease;

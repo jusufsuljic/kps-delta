@@ -4,8 +4,9 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FiArrowUpRight, FiChevronDown, FiMenu, FiX } from 'react-icons/fi';
+import { FiArrowRight, FiArrowUpRight, FiChevronDown, FiMenu, FiX } from 'react-icons/fi';
 import styles from './Navbar.module.css';
+import { trainings, leaderboardUrl } from '../../lib/trainings';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -15,7 +16,7 @@ export default function Navbar() {
   const menuButton = useRef<HTMLButtonElement>(null);
   const trainingButton = useRef<HTMLButtonElement>(null);
   const closeMenu = () => { setMenuOpen(false); setTrainingOpen(false); };
-  const leaderboardUrl = process.env.NODE_ENV === 'production' ? 'https://app.kpsdelta.ba' : 'https://kpsdeltaapp.netlify.app';
+  const nextOpen = trainings.find(t => t.open);
 
   useEffect(() => {
     const outside = (event: PointerEvent) => {
@@ -32,9 +33,11 @@ export default function Navbar() {
         else { setMenuOpen(false); menuButton.current?.focus(); }
       }
     }} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) closeMenu(); }}>
-      <div className={styles.utility}>
-        <div><span>KLUB PRAKTIČNOG STRELJAŠTVA</span><Link href="/kontakt" onClick={closeMenu}>SARAJEVO, BIH <FiArrowUpRight aria-hidden="true" /></Link></div>
-      </div>
+      {nextOpen && (
+        <Link href={`/obuka?tab=${nextOpen.id}`} onClick={closeMenu} className={styles.announce}>
+          Prijave otvorene: <strong>{nextOpen.tabLabel}</strong>{nextOpen.date ? ` — ${nextOpen.date}` : ''} <FiArrowRight aria-hidden="true" />
+        </Link>
+      )}
       <div className={styles.main}>
         <Link href="/" className={styles.brand} aria-label="KPS Delta — početna" onClick={closeMenu}>
           <Image src="/delta_logo.svg" width={68} height={68} alt="" priority />
@@ -55,7 +58,7 @@ export default function Navbar() {
           <Link href="/o-nama" onClick={closeMenu} aria-current={pathname === '/o-nama' ? 'page' : undefined}>O NAMA</Link>
           <Link href="/kontakt" onClick={closeMenu} aria-current={pathname === '/kontakt' ? 'page' : undefined}>KONTAKT</Link>
           <a href={leaderboardUrl} className={styles.leaderboard}>LEADERBOARD <FiArrowUpRight aria-hidden="true" /></a>
-          <Link href="/prijava" onClick={closeMenu} className={styles.join} aria-current={pathname === '/prijava' ? 'page' : undefined}>UČLANI SE <span aria-hidden="true">→</span></Link>
+          <Link href="/prijava" onClick={closeMenu} className={styles.join} aria-current={pathname === '/prijava' ? 'page' : undefined}>UČLANI SE</Link>
         </nav>
       </div>
     </header>

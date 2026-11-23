@@ -17,11 +17,13 @@ export const PageContainer = styled.div`
 
 export const PageHeading = styled.header`
   padding-bottom: 32px;
-  margin-bottom: 32px;
+  margin-bottom: 48px;
   border-bottom: 1px solid var(--border);
-  h1 { font-size: 3.5rem; line-height: 1.05; font-weight: 700; text-transform: uppercase; }
-  > p:last-child:not(:first-child) { color: var(--muted); max-width: 620px; font-size: 1.1rem; line-height: 1.6; margin-top: 18px; }
-  @media (max-width: 767px) { h1 { font-size: 2.6rem; } }
+  .label { margin-bottom: 14px; }
+  h1 { font-size: clamp(3rem, 6.5vw, 5.6rem); line-height: 0.95; font-weight: 700; text-transform: uppercase; }
+  > p:last-child:not(:first-child) { color: var(--muted); max-width: 620px; font-size: 1.2rem; line-height: 1.6; margin-top: 20px; }
+  p a { color: var(--accent); white-space: nowrap; }
+  p a:hover { color: var(--accent-hover); }
 `;
 
 export const buttonStyles = css`
@@ -40,7 +42,7 @@ export const buttonStyles = css`
   letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
-  &:hover:not(:disabled) { background: #e0ff96; border-color: #e0ff96; }
+  &:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
   &:disabled { opacity: 0.5; cursor: not-allowed; }
 `;
 

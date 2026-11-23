@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import styled from "styled-components";
-import { SignUpPageContainer, SignUpForm, CustomSignUpInputContainer, CustomSignUpButton } from "../ui/FormStyles";
+import { SignUpPageContainer, SignUpForm, CustomSignUpInputContainer, CustomSignUpButton, Spinner, StatusBox as SubmissionStatusBox } from "../ui/FormStyles";
 
 type LowlightSignupProps = {
     totalCount: number
@@ -95,34 +94,3 @@ export default function LowlightSignup({ totalCount }: LowlightSignupProps) {
         </SignUpPageContainer>
     );
 }
-
-const SubmissionStatusBox = styled.div<{ $status: 'success' | 'error' }>`
-  padding: 1rem;
-  margin-top: 1rem;
-  border-radius: 0;
-  text-align: center;
-  font-weight: 500;
-  color: #fff;
-  background-color: ${({ $status }) => ($status === 'success' ? '#28a745' : '#dc3545')};
-  animation: fadeIn 0.5s ease;
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-`;
-
-const Spinner = styled.div`
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border-left-color: #000;
-  animation: spin 1s ease infinite;
-  margin: auto;
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-`;

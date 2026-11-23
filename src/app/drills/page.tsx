@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { FiDownload, FiArrowUpRight } from 'react-icons/fi';
 import { PageContainer, PageHeading, buttonStyles } from '../components/ui/Editorial';
+import { leaderboardUrl } from '../lib/trainings';
 
 const drills = [
   {
@@ -50,19 +51,18 @@ export default function DrillsPage() {
     <PageContainer>
       <PageHeading>
         <h1>DELTA DRILLS</h1>
-        <p>Jasan cilj za svaki trening. Pregledaj vježbe i preuzmi mete u PDF formatu.</p>
+        <p>Jasan cilj za svaki trening. Pregledaj vježbe i preuzmi mete u PDF formatu. Rezultate prati na <a href={leaderboardUrl}>leaderboardu <FiArrowUpRight aria-hidden="true" /></a></p>
       </PageHeading>
-      <ResourceBar><span>04 VJEŽBE / PDF METE</span><a href={process.env.NODE_ENV === 'production' ? 'https://app.kpsdelta.ba' : 'https://kpsdeltaapp.netlify.app'}>LEADERBOARD <FiArrowUpRight aria-hidden="true" /></a></ResourceBar>
       <ResourceGrid>
         {drills.map((res) => (
           <ResourceCard key={res.id}>
             <ImageWrapper><Image src={res.image} alt={`Delta ${res.title} — prikaz mete`} width={2800} height={2100} sizes="(max-width: 767px) 100vw, 50vw" /></ImageWrapper>
             <ResourceContent>
-              <CardHeading><h2>{res.title}</h2><span>DELTA / 0{res.id}</span></CardHeading>
+              <h2>{res.title}</h2>
               <dl>
-                <div><dt>SHOOTING STANDARD</dt><dd>{res.shootingStandard}</dd></div>
-                <div><dt>START POSITION</dt><dd>{res.startPosition}</dd></div>
-                <div><dt>DISTANCE</dt><dd>{res.distance}</dd></div>
+                <div><dt>Shooting standard</dt><dd>{res.shootingStandard}</dd></div>
+                <div><dt>Start position</dt><dd>{res.startPosition}</dd></div>
+                <div><dt>Distance</dt><dd>{res.distance}</dd></div>
               </dl>
               <DownloadButton href={res.pdf} download aria-label={`Preuzmi ${res.title} PDF`}>PREUZMI PDF <FiDownload aria-hidden="true" /></DownloadButton>
             </ResourceContent>
@@ -73,35 +73,26 @@ export default function DrillsPage() {
   );
 }
 
-const ResourceBar = styled.div`
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  margin-bottom: 24px; font-size: 0.8rem; letter-spacing: 0.08em; color: var(--muted);
-  a { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: var(--accent); }
-`;
 const ResourceGrid = styled.div`
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px;
   @media (max-width: 767px) { grid-template-columns: 1fr; gap: 24px; }
 `;
 const ResourceCard = styled.article`
-  background: var(--surface); border: 1px solid var(--border); display: flex; flex-direction: column; min-width: 0;
+  background: var(--surface); display: flex; flex-direction: column; min-width: 0;
 `;
 const ImageWrapper = styled.div`
-  background: #f3f3ef; aspect-ratio: 4/3;
+  background: #f3f3ef; aspect-ratio: 4/3; overflow: hidden;
   img { display: block; width: 100%; height: auto; }
 `;
 const ResourceContent = styled.div`
   padding: 28px; display: flex; flex-direction: column; flex: 1;
-  dl { margin-block: 24px; }
-  dl > div { display: grid; grid-template-columns: 140px 1fr; gap: 16px; padding-block: 12px; border-top: 1px solid var(--border); }
-  dt { color: var(--muted); font-size: 0.7rem; letter-spacing: 0.05em; padding-top: 3px; }
-  dd { font-size: 1rem; line-height: 1.55; color: #d8dbd2; }
-  @media (max-width: 1000px) { dl > div { grid-template-columns: 1fr; gap: 5px; } }
+  h2 { font-size: 2.8rem; line-height: 1; }
+  dl { margin-block: 20px 28px; }
+  dl > div { display: grid; grid-template-columns: 160px 1fr; gap: 16px; padding-block: 12px; border-top: 1px solid var(--border); }
+  dt { color: var(--muted); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 3px; }
+  dd { font-size: 1.1rem; line-height: 1.5; color: #d8dbd2; }
+  @media (max-width: 1000px) { dl > div { grid-template-columns: 1fr; gap: 4px; } }
   @media (max-width: 767px) { padding: 22px; }
-`;
-const CardHeading = styled.div`
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  h2 { font-size: 2.2rem; line-height: 1; }
-  span { font-size: 0.75rem; letter-spacing: 0.1em; color: var(--muted); }
 `;
 const DownloadButton = styled.a`
   ${buttonStyles}

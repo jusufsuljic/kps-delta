@@ -34,15 +34,15 @@ const TeamImage = styled.div`
   @media (max-width: 767px) { height: 440px; }
 `;
 const Story = styled.div`
-  h2 { font-size: 3rem; line-height: 1.08; margin-bottom: 24px; }
+  h2 { font-size: 3.2rem; line-height: 1; margin-bottom: 24px; }
   > p { font-size: 1.1rem; line-height: 1.75; color: var(--muted); margin-bottom: 24px; }
   a { margin-top: 8px; }
   @media (max-width: 900px) { h2 { font-size: 2.5rem; } }
 `;
 const Values = styled.section`
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; margin-top: 64px;
-  article { padding-top: 24px; border-top: 1px solid var(--border); }
-  h2 { font-size: 1.6rem; margin-bottom: 14px; }
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; margin-top: 80px;
+  article { padding-top: 24px; border-top: 2px solid var(--accent); }
+  h2 { font-size: 1.9rem; margin-bottom: 12px; }
   p { color: var(--muted); font-size: 1.05rem; line-height: 1.7; }
-  @media (max-width: 767px) { grid-template-columns: 1fr; margin-top: 40px; gap: 28px; }
+  @media (max-width: 767px) { grid-template-columns: 1fr; margin-top: 48px; gap: 32px; }
 `;

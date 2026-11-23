@@ -20,7 +20,7 @@ All user-facing copy is **Bosnian** (ijekavica: "vježbe", "obezbijeđena"). Bra
 - Type: ONE family, **Mohave** (`--font-mohave`), uppercase for headings/nav/buttons. Big, confident headings (clamp up to ~5.6rem). No monospace font (it was tried and rejected as vibe-coded).
 - One small utility: `.label` (small uppercase, letter-spaced, muted) for spec labels / kickers. Use sparingly.
 - Shapes: square corners, plain 1px borders, no chamfers, no brackets, no grid backgrounds, no glows.
-- Photos: grayscale with a dark overlay at rest, color plus a slight scale on hover (T.REX category-tile treatment).
+- Photos: full colour at rest with a dark gradient for text legibility. On hover a lime tint (`mix-blend-mode: color`, ~55%) plus a slight zoom. Do NOT use grayscale at rest: the owner said it makes tiles look disabled.
 - Components that exist and were approved by the owner:
   - Navbar: full-width lime **announcement bar** (driven by `trainings.ts`), sticky dark header, plain links, lime "UČLANI SE" button.
   - Home: **4 photo tiles** (Učlani se / Obuka / Drills / Leaderboard). 2x2 on desktop, stacked full-width on mobile, one huge centred word plus a short line. Then ONE club section (squad photo + "AIM AND HIT. SIMPLE AS THAT.").

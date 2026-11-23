@@ -1,238 +1,94 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components'; // Keep this here
+import { useRef } from 'react';
+import styled from 'styled-components';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { FiArrowRight } from 'react-icons/fi';
+import { PageContainer, PageHeading, buttonStyles } from '../components/ui/Editorial';
+import trainingImg from '@/../public/obukaimg.jpg';
+import { trainings } from '../lib/trainings';
 
-// --- Data can live here or be imported ---
-const trainings = [
-  {
-    id: "pistol",
-    label: "Delta - Pistol Level 1",
-    content: (
-      <>
-        <p>
-          Trening je namijenjen osobama koje nemaju prethodno iskustvo s
-          vatrenim oružjem ili su do sada imali minimalan kontakt s njim.
-        </p>
-        <p>
-          Obuka uključuje praktične vježbe rukovanja pištoljem, pravilnog stava,
-          osnovne tehnike gađanja, te sigurne manipulacije oružjem u
-          kontrolisanim uslovima.
-        </p>
-        <p>
-          Broj učesnika je ograničen na maksimalno 5, kako bismo svakom
-          polazniku mogli posvetiti dovoljno pažnje i osigurati kvalitetan i
-          siguran trening.
-        </p>
-
-        <p><strong>Šta je potrebno?</strong></p>
-        <ul>
-          <li>
-            Odjeća prilagođena vremenskim uslovima (trening se održava bez
-            obzira na vremenske prilike)
-          </li>
-          <li>Sva potrebna oprema će Vam biti obezbijeđena</li>
-        </ul>
-
-        <p>Lokacija: Sportsko strelište Žuč</p>
-        <p>Datum: 24.10.2026. (Subota)</p>
-        <p>Trajanje: 60 Minuta</p>
-      </>
-    ),
-    url: "",
-  },
-  {
-    id: "lowlight",
-    label: "Delta - Low light pistol Level 1",
-    content: (
-      <>
-        <p>
-          Trening uključuje praktične vježbe korištenja svjetla, kretanja i
-          gađanja u noćnim uslovima.
-        </p>
-        <p>
-          Broj učesnika je ograničen na maksimalno 10, kako bismo osigurali
-          kvalitetnu i sigurnu obuku za svakog polaznika.
-        </p>
-        <p><strong>Šta je potrebno?</strong></p>
-        <ul>
-          <li>
-            Pištolj i odgovarajuća futrola (nije dozvoljena upotreba kožnih ili
-            najlonskih futrola)
-          </li>
-          <li>Zaštita za oči i uši (poželjna elektronska zaštita sluha)</li>
-          <li>Najmanje 2 okvira (magazina), futrola za okvire</li>
-          <li>110 metaka (moguće kupiti i kod nas)</li>
-          <li>Ručna lampa (baterijska) sa svježim baterijama</li>
-          <li>
-            Ako koristite pištolj sa montiranom lampom, onda nosite samo to.
-          </li>
-          <li>Čeona lampa obavezna (sigurnosna pravila)</li>
-          <li>
-            Odjeća prilagođena vremenskim uslovima (trening se održava bez
-            obzira na vremenske prilike)
-          </li>
-        </ul>
-
-        <p>Lokacija: Sportsko strelište Žuč</p>
-        <p>Trajanje: 17:00 - 20:00</p>
-        <p>Cijena kotizacije 80 KM</p>
-      </>
-    ),
-    url: "",
-  },
-];
-
-
-const ObukaContent = () => {
-  const router = useRouter()
+export default function ObukaContent() {
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const [activeTab, setActiveTab] = useState(() => {
-    const tab = searchParams.get('tab');
-    return tab && trainings.some(t => t.id === tab) ? tab : trainings[0].id;
-  });
-
-  useEffect(() => {
-    const tab = searchParams.get('tab');
-    if (tab && trainings.some(t => t.id === tab)) {
-      setActiveTab(tab);
-    } else {
-      // Fallback to the first tab if the URL parameter is invalid
-      setActiveTab(trainings[0].id);
-    }
-  }, [searchParams]);
-
-  const registerForTraining = async () => {
-    if (activeTab === "pistol") {
-      // navigate to prijava/pistol1
-      router.push("/prijava/pistol1")
-    } else if (activeTab === "lowlight") {
-      router.push("/prijava/lowlight")
-
-    } else {
-      return
-    }
-  }
+  const requestedTab = searchParams.get('tab');
+  const activeTab = trainings.some(t => t.id === requestedTab) ? requestedTab! : 'pistol';
+  const training = trainings.find(t => t.id === activeTab)!;
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const selectTab = (id: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('tab', id);
+    router.replace(`/obuka?${params.toString()}`, { scroll: false });
+  };
 
   return (
-    // Use the container component here
-    <ObukaPageContainer>
-      <Tabs>
-        {trainings.map(({ id, label }) => (
-          <TabButton
-            key={id}
-            active={activeTab === id}
-            onClick={() => setActiveTab(id)}
-            aria-selected={activeTab === id}
-            role="tab"
-            tabIndex={activeTab === id ? 0 : -1}
-          >
-            {label}
-          </TabButton>
-        ))}
-      </Tabs>
-
-      <TabContent role="tabpanel">
-        {trainings.find((t) => t.id === activeTab)?.content}
-        <CustomButton onClick={() => registerForTraining()} disabled={activeTab == "lowlight"}>{activeTab == "lowlight" ? "COMING SOON" : "PRIJAVI SE"}</CustomButton>
-      </TabContent>
-
-    </ObukaPageContainer>
+    <PageContainer>
+      <PageHeading><h1>OBUKA SA CILJEM.</h1><p>Odaberi program i pronađi sve informacije o obuci, opremi i prijavi.</p></PageHeading>
+      <TrainingLayout>
+        <TrainingVisual><Image src={trainingImg} alt="Praktični trening na strelištu" fill priority sizes="(max-width: 900px) 100vw, 40vw" /></TrainingVisual>
+        <TrainingDetails>
+          <Tabs role="tablist" aria-label="Program obuke">
+            {trainings.map(({ id, tabLabel }, index) => <TabButton key={id} ref={el => { tabRefs.current[index] = el; }} id={`tab-${id}`} $active={activeTab === id} role="tab" aria-selected={activeTab === id} aria-controls={`panel-${id}`} tabIndex={activeTab === id ? 0 : -1} onClick={() => selectTab(id)} onKeyDown={event => {
+              let next = index;
+              if (event.key === 'ArrowRight') next = (index + 1) % trainings.length;
+              else if (event.key === 'ArrowLeft') next = (index - 1 + trainings.length) % trainings.length;
+              else if (event.key === 'Home') next = 0;
+              else if (event.key === 'End') next = trainings.length - 1;
+              else return;
+              event.preventDefault(); selectTab(trainings[next].id); tabRefs.current[next]?.focus();
+            }}>{tabLabel}</TabButton>)}
+          </Tabs>
+          <TabContent id={`panel-${activeTab}`} role="tabpanel" aria-labelledby={`tab-${activeTab}`} tabIndex={0}>
+            <h2>{training.label}</h2>
+            <Specs>
+              {training.specs.map(spec => <div key={spec.label}><dt>{spec.label}</dt><dd>{spec.value}</dd></div>)}
+            </Specs>
+            {training.description.map((para, i) => <p key={i}>{para}</p>)}
+            <h3>Šta je potrebno?</h3>
+            <ul>{training.requirements.map((item, i) => <li key={i}>{item}</li>)}</ul>
+            <CustomButton onClick={() => router.push(training.signupHref)} disabled={!training.open}>{!training.open ? 'COMING SOON' : <>PRIJAVI SE <FiArrowRight aria-hidden="true" /></>}</CustomButton>
+          </TabContent>
+        </TrainingDetails>
+      </TrainingLayout>
+    </PageContainer>
   );
-};
+}
 
-export default ObukaContent;
-
-// --- ALL STYLED COMPONENTS MOVED HERE ---
-const ObukaPageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem 20rem;
-
-  @media screen and (max-width: 767px) {
-    padding: 2rem;
-  }
+const TrainingLayout = styled.div`
+  display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 64px; align-items: start;
+  @media (max-width: 900px) { grid-template-columns: 1fr; gap: 32px; }
 `;
-
+const TrainingVisual = styled.div`
+  position: sticky; top: calc(var(--header-h) + 24px); aspect-ratio: 4 / 5; background: var(--surface);
+  img { object-fit: cover; }
+  @media (max-width: 900px) { position: relative; top: 0; aspect-ratio: 16 / 10; img { object-position: 50% 42%; } }
+`;
+const TrainingDetails = styled.div`min-width: 0;`;
 const Tabs = styled.div`
-  display: flex;
-  align-self: flex-start;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 2px solid #333;
+  display: flex; gap: 32px; border-bottom: 1px solid var(--border); margin-bottom: 36px;
 `;
-
-const TabButton = styled.button<{ active: boolean }>`
-  font-family: var(--font-mohave);
-  background: transparent;
-  border: none;
-  color: ${({ active }) => (active ? '#CEFF51' : '#777')};
-  font-weight: ${({ active }) => (active ? '900' : '600')};
-  font-size: 1.5rem;
-  @media screen and (max-width: 767px) {
-    font-size: 1rem;
-  }
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: color 0.3s ease;
-
-  &:hover {
-    color: #aadd22;
-  }
-
-  &:focus {
-    outline-offset: 3px;
-    outline: 2px solid #ceff51;
-  }
+const TabButton = styled.button<{ $active: boolean }>`
+  padding: 14px 0; min-height: 54px; margin-bottom: -1px; background: transparent; border: 0; cursor: pointer;
+  border-bottom: 3px solid ${({ $active }) => $active ? 'var(--accent)' : 'transparent'};
+  color: ${({ $active }) => $active ? 'var(--foreground)' : 'var(--muted)'};
+  font-size: 1.2rem; font-weight: 600; letter-spacing: 0.05em;
+  &:hover { color: var(--foreground); }
 `;
-
 const TabContent = styled.div`
-  font-size: 1rem;
-  line-height: 1.5;
-  margin-bottom: 2rem;
-  width: 100%; /* ensures uniform width */
-
-  p {
-    margin: 0 0 1.5rem 0; /* reset top margin, keep bottom spacing */
-  }
-
-  ul {
-    margin: 0 0 1.5rem 0; /* reset top margin */
-    padding-left: 1.2rem; /* uniform left indent */
-    list-style-position: inside; /* keeps bullets aligned with text */
-  }
-
-  li {
-    margin-bottom: 0.5rem;
-  }
-
-  strong {
-    display: block; /* makes "Šta je potrebno?" behave like a heading */
-    margin-bottom: 0.5rem;
-  }
+  font-size: 1.15rem; line-height: 1.65; color: #c4c8be;
+  h2 { font-size: clamp(2.2rem, 3.6vw, 3rem); line-height: 1; color: var(--foreground); margin-bottom: 28px; text-transform: uppercase; }
+  h3 { font-size: 1.5rem; color: var(--foreground); margin: 32px 0 12px; }
+  > p { margin-bottom: 16px; }
+  ul { list-style: none; margin-bottom: 36px; }
+  li { position: relative; padding: 8px 0 8px 24px; border-bottom: 1px solid var(--border); }
+  li::before { content: ''; position: absolute; left: 0; top: 1.15em; width: 10px; height: 2px; background: var(--accent); }
 `;
-
-
-const CustomButton = styled.button`
-  background-color: #ceff51;
-  border: none;
-  color: #000000;
-  font-family: var(--font-mohave);
-  font-size: 1.5rem;
-  font-weight: bold;
-  height: 4rem;
-  width: 100%;
-  cursor: pointer;
-  display: flex; /* Added for centering spinner */
-  justify-content: center; /* Added for centering spinner */
-  align-items: center; /* Added for centering spinner */
-  transition: opacity 0.2s ease;
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.65;
-  }
+const Specs = styled.dl`
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin-bottom: 32px;
+  background: var(--border); border: 1px solid var(--border);
+  > div { padding: 16px 18px; background: var(--background); }
+  dt { font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  dd { font-size: 1.35rem; font-weight: 600; color: var(--foreground); line-height: 1.25; margin-top: 2px; }
 `;
+const CustomButton = styled.button`${buttonStyles} width: 100%; justify-content: space-between; min-height: 56px; font-size: 1.1rem;`;

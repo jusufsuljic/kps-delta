@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import styled from "styled-components";
+import { SignUpPageContainer, SignUpForm, CustomSignUpInputContainer, CustomSignUpButton, Spinner, StatusBox as SubmissionStatusBox } from "../ui/FormStyles";
 
 type Group = {
     id: number;
@@ -64,31 +65,31 @@ export default function Pistol1Signup({ groups }: { groups: Group[] }) {
                 <h1>REGISTRACIJA ZA DELTA - PISTOL LEVEL 1 (24.10.2026.)</h1>
 
                 <CustomSignUpInputContainer>
-                    <label>Ime</label>
-                    <input name="ime" required />
+                    <label htmlFor="ime">Ime</label>
+                    <input id="ime" name="ime" required />
                 </CustomSignUpInputContainer>
 
                 <CustomSignUpInputContainer>
-                    <label>Prezime</label>
-                    <input name="prezime" required />
+                    <label htmlFor="prezime">Prezime</label>
+                    <input id="prezime" name="prezime" required />
                 </CustomSignUpInputContainer>
 
                 <CustomSignUpInputContainer>
-                    <label>Kontakt telefon</label>
-                    <input name="kontaktTelefon" required />
+                    <label htmlFor="kontaktTelefon">Kontakt telefon</label>
+                    <input id="kontaktTelefon" name="kontaktTelefon" required />
                 </CustomSignUpInputContainer>
 
                 <CustomSignUpInputContainer>
-                    <label>Email</label>
-                    <input type="email" name="email" required />
+                    <label htmlFor="email">Email</label>
+                    <input id="email" type="email" name="email" required />
                 </CustomSignUpInputContainer>
 
                 <CustomSignUpInputContainer>
-                    <label>Broj lične karte</label>
-                    <input name="brojLicneKarte" required />
+                    <label htmlFor="brojLicneKarte">Broj lične karte</label>
+                    <input id="brojLicneKarte" name="brojLicneKarte" required />
                 </CustomSignUpInputContainer>
 
-                <TimeframeContainer>
+                <TimeframeContainer data-full-width>
                     <label>Odaberite termin</label>
                     <TimeframeOptions>
                         {groups
@@ -97,11 +98,13 @@ export default function Pistol1Signup({ groups }: { groups: Group[] }) {
                                 <TimeframeBox
                                     key={group.id}
                                     type="button"
-                                    selected={selectedGroup?.id === group.id}
+                                    $selected={selectedGroup?.id === group.id}
+                                    aria-pressed={selectedGroup?.id === group.id}
                                     disabled={group.full}
                                     onClick={() => !group.full && setSelectedGroup(group)}
                                 >
-                                    {group.label}
+                                    <strong>{group.label}</strong>
+                                    <small>{group.full ? 'POPUNJENO' : selectedGroup?.id === group.id ? 'ODABRANO' : 'SLOBODNO'}</small>
                                 </TimeframeBox>
                             ))}
                     </TimeframeOptions>
@@ -112,7 +115,7 @@ export default function Pistol1Signup({ groups }: { groups: Group[] }) {
                 </CustomSignUpButton>
 
                 {submissionStatus !== 'idle' && (
-                    <SubmissionStatusBox status={submissionStatus}>
+                    <SubmissionStatusBox role="status" $status={submissionStatus}>
                         {submissionMessage}
                     </SubmissionStatusBox>
                 )}
@@ -121,135 +124,34 @@ export default function Pistol1Signup({ groups }: { groups: Group[] }) {
     );
 }
 
-// --- Styled Components (same as before, unchanged) ---
-const SignUpPageContainer = styled.div`
-  display: flex;
-  gap: 1rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem 20rem;
-  @media screen and (max-width: 767px) {
-    padding: 2rem;
-  }
-`;
-
-const SignUpForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 1rem;
-`;
-
-const CustomSignUpInputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  input {
-    background-color: #1a1a1a;
-    color: #fff;
-    height: 2.5rem;
-    width: 100%;
-    border-radius: 6px;
-    padding-left: 1rem;
-    border: 2px solid gray;
-    transition: border-color 0.2s ease;
-
-    &:focus {
-      outline: none;
-      border-color: #CEFF51;
-    }
-  }
-`;
-
 const TimeframeContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 10px;
+  > label { font-size: 1.05rem; color: #c7cbbf; }
 `;
 
 const TimeframeOptions = styled.div`
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 10px;
 `;
 
-const TimeframeBox = styled.button<{ selected: boolean }>`
-  background-color: ${({ selected }) => (selected ? '#CEFF51' : 'transparent')};
-  color: ${({ selected }) => (selected ? '#000' : '#fff')};
-  font-family: var(--font-mohave);
-  font-weight: 600;
-  padding: 0.75rem 1.25rem;
-  border-radius: 8px;
-  border: 2px solid #777;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 1rem;
-
-  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
-  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
-
-  &:hover {
-    border-color: ${({ disabled }) => (disabled ? '#777' : '#CEFF51')};
-    background-color: ${({ selected, disabled }) =>
-      disabled ? (selected ? '#BBD94A' : 'transparent') : selected ? '#CEFF51' : 'transparent'};
-  }
-
+const TimeframeBox = styled.button<{ $selected: boolean }>`
+  display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  padding: 14px 16px; min-height: 76px; text-align: left;
+  font-family: var(--font-mohave), sans-serif;
+  background: ${({ $selected }) => ($selected ? 'var(--accent)' : '#0e100d')};
+  color: ${({ $selected }) => ($selected ? '#101110' : 'var(--foreground)')};
+  border: 1px solid ${({ $selected }) => ($selected ? 'var(--accent)' : 'var(--border-strong)')};
+  border-radius: 0; cursor: pointer;
+  small { font-size: 0.85rem; letter-spacing: 0.1em; }
+  strong { font-size: 1.45rem; font-weight: 600; line-height: 1.2; }
+  small { color: ${({ $selected }) => ($selected ? '#101110' : 'var(--accent)')}; }
+  &:hover:not(:disabled) { border-color: var(--accent); }
   &:disabled {
-    background-color: ${({ selected }) => (selected ? '#BBD94A' : 'transparent')};
-    border-color: #555;
-    cursor: not-allowed;
-  }
-`;
-
-
-const CustomSignUpButton = styled.button`
-  background-color: #CEFF51;
-  border: none;
-  color: #000;
-  font-family: var(--font-mohave);
-  font-size: 1.5rem;
-  font-weight: bold;
-  height: 4rem;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: opacity 0.2s ease;
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.65;
-  }
-`;
-
-const Spinner = styled.div`
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border-left-color: #000;
-  animation: spin 1s ease infinite;
-  margin: auto;
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-`;
-
-const SubmissionStatusBox = styled.div<{ status: 'success' | 'error' }>`
-  padding: 1rem;
-  margin-top: 1rem;
-  border-radius: 8px;
-  text-align: center;
-  font-weight: 500;
-  color: #fff;
-  background-color: ${({ status }) => (status === 'success' ? '#28a745' : '#dc3545')};
-  animation: fadeIn 0.5s ease;
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    cursor: not-allowed; opacity: 0.45;
+    strong { text-decoration: line-through; }
+    small { color: var(--danger); }
   }
 `;

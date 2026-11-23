@@ -1,207 +1,57 @@
-'use client'
+'use client';
 
-import styled, { keyframes } from "styled-components";
-import Image from "next/image";
-import drillsimg from '@/../public/drills_sharp.png'
-import onamaimg from '@/../public/onamaimg.jpg'
-import obukaImg from '@/../public/obukaimg.jpg'
-import registerImg from '@/../public/registerimg.png'
-import { useRouter } from "next/navigation";
-
-interface MenuSelectorItemProps {
-  index: number;
-}
-
-const fadeInUp = keyframes`
-  from {
-    opacity: 0;
-    filter: blur(8px) contrast(0.85);
-    transform: translate3d(0, 18px, 0) scale(0.985);
-  }
-  55% {
-    filter: blur(0) contrast(1.08);
-  }
-  to {
-    opacity: 1;
-    filter: blur(0) contrast(1);
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-`;
+import Image from 'next/image';
+import Link from 'next/link';
+import { FiArrowRight, FiArrowUpRight } from 'react-icons/fi';
+import obukaImg from '@/../public/obukaimg.jpg';
+import registerImg from '@/../public/registerimg.png';
+import drillsImg from '@/../public/drills_sharp.png';
+import teamImg from '@/../public/onamaimg.jpg';
+import squadImg from '@/../public/squad.jpg';
+import styles from './page.module.css';
 
 export default function Home() {
-
-  const router = useRouter()
-  const leaderboardUrl =
-    process.env.NODE_ENV === "production"
-      ? "https://app.kpsdelta.ba"
-      : "https://kpsdeltaapp.netlify.app";
-  const landingImageSizes = "(max-width: 767px) 100vw, (min-width: 1300px) 280px, 320px";
+  const leaderboardUrl = process.env.NODE_ENV === 'production' ? 'https://app.kpsdelta.ba' : 'https://kpsdeltaapp.netlify.app';
+  const destinations = [
+    { title: 'OBUKA', description: 'Pronađi obuku za svoj nivo iskustva.', href: '/obuka', image: obukaImg },
+    { title: 'DELTA DRILLS', description: 'Vježbe i mete za tvoj sljedeći trening.', href: '/drills', image: drillsImg },
+    { title: 'UČLANI SE', description: 'Tvoj prvi korak u KPS Delta.', href: '/prijava', image: registerImg },
+    { title: 'LEADERBOARD', description: 'Rezultati i rangiranje na jednom mjestu.', href: leaderboardUrl, image: teamImg },
+  ];
 
   return (
-    <HomePageContainer>
-      <MenuSelector>
-        <MenuSelectorItem index={0} onClick={() => router.push("/prijava")}>
-          <ImageWrapper>
-            <FloatingContainer delay="0s">
-              <StyledImage src={registerImg} fill alt="UČLANI SE" sizes={landingImageSizes} priority />
-            </FloatingContainer>
-            <Overlay />
-          </ImageWrapper>
-          <StyledText>UČLANI SE</StyledText>
-        </MenuSelectorItem>
-
-
-        <MenuSelectorItem index={1} onClick={() => router.push("/obuka")}>
-          <ImageWrapper>
-            <FloatingContainer delay="0.2s">
-              <StyledImage src={obukaImg} fill alt="OBUKA" sizes={landingImageSizes} priority />
-            </FloatingContainer>
-            <Overlay />
-          </ImageWrapper>
-          <StyledText>OBUKA</StyledText>
-        </MenuSelectorItem>
-
-        <MenuSelectorItem index={2} onClick={() => router.push("/drills")}>
-          <ImageWrapper>
-            <FloatingContainer delay="0.3s">
-              <StyledImage src={drillsimg} fill alt="DRILLS" sizes={landingImageSizes} priority />
-            </FloatingContainer>
-            <Overlay />
-          </ImageWrapper>
-          <StyledText>DRILLS</StyledText>
-        </MenuSelectorItem>
-        <MenuSelectorItem index={3} onClick={() => window.location.assign(leaderboardUrl)}>
-          <ImageWrapper>
-            <FloatingContainer delay="0.4s">
-              <StyledImage src={onamaimg} fill alt="LEADERBOARD" sizes={landingImageSizes} priority />
-            </FloatingContainer>
-            <Overlay />
-          </ImageWrapper>
-          <StyledText>LEADERBOARD</StyledText>
-        </MenuSelectorItem>
-
-      </MenuSelector>
-    </HomePageContainer>
+    <>
+      <section className={styles.hero} aria-labelledby="hero-title">
+        <div className={styles.heroImage}><Image src={obukaImg} alt="Trening na otvorenom strelištu" fill priority sizes="(max-width: 767px) 100vw, 75vw" /></div>
+        <div className={styles.heroInner}>
+          <div className={styles.heroCopy}>
+            <h1 id="hero-title">AIM AND HIT.<br /><span>SIMPLE AS THAT.</span></h1>
+            <p className={styles.heroDescription}>Znanje, disciplina i zajednica.<br />Praktično streljaštvo počinje odgovornim pristupom.</p>
+            <div className={styles.heroActions}>
+              <Link href="/obuka" className={styles.button}>ISTRAŽI OBUKE <FiArrowRight aria-hidden="true" /></Link>
+              <Link href="/o-nama" className={styles.textLink}>UPOZNAJ DELTU <FiArrowUpRight aria-hidden="true" /></Link>
+            </div>
+          </div>
+          <span className={styles.imageCaption}>KLUB PRAKTIČNOG STRELJAŠTVA DELTA</span>
+        </div>
+      </section>
+      <div className={styles.missionStrip}><div><span>ODGOVORNOST.</span><span>PRECIZNOST.</span><span>NAPREDAK.</span><Link href="/prijava">TVOJ SLJEDEĆI KORAK <FiArrowRight aria-hidden="true" /></Link></div></div>
+      <section className={styles.explore} aria-labelledby="explore-title">
+        <div className={styles.sectionHeading}>
+          <div><h2 id="explore-title">PRONAĐI SVOJ PRAVAC.</h2></div>
+          <p>Od prvog treninga do sljedećeg izazova.</p>
+        </div>
+        <div className={styles.grid}>
+          {destinations.map((item) => <Link href={item.href} className={styles.card} key={item.title}>
+            <div className={styles.cardImage}><Image src={item.image} alt="" fill sizes="(max-width: 540px) 100vw, (max-width: 1000px) 50vw, 25vw" /><span className={styles.cardArrow}><FiArrowUpRight aria-hidden="true" /></span></div>
+            <div className={styles.cardCopy}><h3>{item.title}</h3><p>{item.description}</p></div>
+          </Link>)}
+        </div>
+      </section>
+      <section className={styles.club} aria-labelledby="club-title">
+        <div className={styles.clubImage}><Image src={squadImg} alt="Tim KPS Delta" fill sizes="(max-width: 767px) 100vw, 50vw" /></div>
+        <div className={styles.clubCopy}><h2 id="club-title">ZAJEDNIČKI CILJ.<br />ISTI TIM.</h2><p>Okupljamo početnike i iskusne strijelce koji dijele strast prema sportu. Kroz edukaciju, trening i podršku gradimo kulturu sigurnog i odgovornog streljaštva.</p><Link href="/o-nama" className={styles.button}>VIŠE O KLUBU <FiArrowRight aria-hidden="true" /></Link></div>
+      </section>
+    </>
   );
 }
-
-
-const HomePageContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem 20rem;
-  @media screen and (max-width: 767px) {
-    padding: 0;
-  }
-
-  @media screen and (min-width: 1440px) {
-    padding: 0;
-  }
-`;
-
-const MenuSelector = styled.div`
-  height: 66rem;
-  display: flex;
-
-  @media screen and (max-width: 767px) {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  @media screen and (min-width: 1300px) {
-    height: 32rem;
-    width: 70rem;
-  }
-
-  @media screen and (min-height: 1200px) {
-    height: 66rem;
-    width: 80rem;
-  }
-`;
-
-const floatAnim = keyframes`
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-5px); }
-  100% { transform: translateY(0px); }
-`;
-
-const StyledText = styled.span`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2rem;
-  font-weight: bold;
-  color: white;
-  z-index: 2;
-  transition: all 0.3s ease;
-`;
-
-const Overlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(53, 65, 22, 0.3); /* subtle tint */
-  transition: opacity 0.3s ease;
-`;
-
-const MenuSelectorItem = styled.div<MenuSelectorItemProps>`
-  position: relative;
-  width: 20rem;
-  height: 100%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  overflow: hidden;
-  opacity: 0;
-  animation: ${fadeInUp} 0.48s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  animation-delay: ${({ index }: { index?: number }) => `${(index ?? 0) * 0.09}s`};
-  will-change: transform, opacity, filter;
-
-  &:hover ${Overlay} {
-    opacity: 0;
-  }
-
-  &:hover ${StyledText} {
-    color: #CEFF51;
-    background-color: black;
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-  }
-
-  @media screen and (max-width: 767px) {
-    width: auto;
-  }
-`;
-
-const ImageWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: hidden; /* clips floating inner container */
-`;
-
-
-const StyledImage = styled(Image)`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
-
-
-const FloatingContainer = styled.div<{ delay?: string }>`
-  width: 110%;         /* slightly zoomed */
-  height: 110%;
-  position: absolute;
-  top: -5%;
-  left: -5%;
-  animation: ${floatAnim} 4s ease-in-out infinite;
-  animation-delay: ${({ delay }) => delay || '0s'};
-`;
-
-

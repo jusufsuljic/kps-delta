@@ -1,17 +1,10 @@
-'use client'
+'use client';
 
-import React from 'react'
-import styled from 'styled-components'
-import Image from 'next/image'
+import styled from 'styled-components';
+import Image from 'next/image';
+import { FiDownload, FiArrowUpRight } from 'react-icons/fi';
+import { PageContainer, PageHeading, buttonStyles } from '../components/ui/Editorial';
 
-function capitalizeFirstLetter(str: string) {
-  if (typeof str !== 'string' || str.length === 0) {
-    return ''; // Handle empty or non-string inputs
-  }
-  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-}
-
-// Example JSON data (you can move this to a separate file if needed)
 const drills = [
   {
     id: 1,
@@ -51,142 +44,67 @@ const drills = [
   },
 ]
 
-export default function IDPAPage() {
-  return (
-    <DrillsPageContainer>
-      <PageHeader>
-        <h1>DELTA DRILLS</h1>
-      </PageHeader>
 
+export default function DrillsPage() {
+  return (
+    <PageContainer>
+      <PageHeading>
+        <h1>DELTA DRILLS</h1>
+        <p>Jasan cilj za svaki trening. Pregledaj vježbe i preuzmi mete u PDF formatu.</p>
+      </PageHeading>
+      <ResourceBar><span>04 VJEŽBE / PDF METE</span><a href={process.env.NODE_ENV === 'production' ? 'https://app.kpsdelta.ba' : 'https://kpsdeltaapp.netlify.app'}>LEADERBOARD <FiArrowUpRight aria-hidden="true" /></a></ResourceBar>
       <ResourceGrid>
         {drills.map((res) => (
           <ResourceCard key={res.id}>
-            <ImageWrapper>
-              <Image
-                src={res.image}
-                alt={res.title}
-                width={400}
-                height={400}
-                style={{ objectFit: 'cover', borderRadius: '10px' }}
-              />
-            </ImageWrapper>
-
+            <ImageWrapper><Image src={res.image} alt={`Delta ${res.title} — prikaz mete`} width={2800} height={2100} sizes="(max-width: 767px) 100vw, 50vw" /></ImageWrapper>
             <ResourceContent>
-              <h2>{res.title}</h2>
-              <p>SHOOTING STANDARD: {res.shootingStandard}</p>
-              <p>START POSITION: {res.startPosition}</p>
-              <p>DISTANCE: {capitalizeFirstLetter(res.distance)}</p>
-              <DownloadButton href={res.pdf} download>
-                PREUZMI PDF
-              </DownloadButton>
+              <CardHeading><h2>{res.title}</h2><span>DELTA / 0{res.id}</span></CardHeading>
+              <dl>
+                <div><dt>SHOOTING STANDARD</dt><dd>{res.shootingStandard}</dd></div>
+                <div><dt>START POSITION</dt><dd>{res.startPosition}</dd></div>
+                <div><dt>DISTANCE</dt><dd>{res.distance}</dd></div>
+              </dl>
+              <DownloadButton href={res.pdf} download aria-label={`Preuzmi ${res.title} PDF`}>PREUZMI PDF <FiDownload aria-hidden="true" /></DownloadButton>
             </ResourceContent>
           </ResourceCard>
         ))}
       </ResourceGrid>
-    </DrillsPageContainer>
-  )
+    </PageContainer>
+  );
 }
 
-// --- Styled Components ---
-const DrillsPageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 1rem 20rem;
-  font-size: 1rem;
-  gap: 2rem;
-  @media screen and (max-width: 1200px) {
-    padding: 2rem 8rem;
-  }
-  @media screen and (max-width: 767px) {
-    padding: 2rem;
-  }
-`
-
-
-const PageHeader = styled.div`
-  h1 {
-    font-family: var(--font-mohave);
-    color: #ffffff;
-  }
-`
-
+const ResourceBar = styled.div`
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  margin-bottom: 24px; font-size: 0.8rem; letter-spacing: 0.08em; color: var(--muted);
+  a { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: var(--accent); }
+`;
 const ResourceGrid = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-`
-
-const ResourceCard = styled.div`
-  display: flex;
-  flex-direction: column; // stack image + content vertically
-  background-color: #1a1a1a;
-  border-radius: 16px;
-  padding: 0; // remove padding from card itself
-  overflow: hidden; // ensures rounded corners clip the image
-
-  @media screen and (min-width: 768px) {
-    flex-direction: row; // desktop: image left, content right
-    padding: 1.5rem;     // card padding only applies to desktop row layout
-    gap: 2rem;
-    align-items: center;
-  }
-`
-
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px;
+  @media (max-width: 767px) { grid-template-columns: 1fr; gap: 24px; }
+`;
+const ResourceCard = styled.article`
+  background: var(--surface); border: 1px solid var(--border); display: flex; flex-direction: column; min-width: 0;
+`;
 const ImageWrapper = styled.div`
-  width: 100%;
-
-  img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    display: block;
-  }
-
-  @media screen and (min-width: 768px) {
-    flex: 1;
-    min-width: 350px;
-    border-radius: 10px; // optional on desktop
-  }
-`
-
+  background: #f3f3ef; aspect-ratio: 4/3;
+  img { display: block; width: 100%; height: auto; }
+`;
 const ResourceContent = styled.div`
-  padding: 1.5rem; // content padding inside card
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  h2 {
-    font-family: var(--font-mohave);
-    color: #ceff51;
-    font-size: 1.75rem;
-    margin-bottom: 0.75rem;
-  }
-
-  p {
-    color: #ddd;
-    margin-bottom: 1.25rem;
-    line-height: 1.5;
-  }
-
-  @media screen and (min-width: 768px) {
-    flex: 2;
-    padding: 0; // on desktop, card padding handles spacing
-  }
-`
-
+  padding: 28px; display: flex; flex-direction: column; flex: 1;
+  dl { margin-block: 24px; }
+  dl > div { display: grid; grid-template-columns: 140px 1fr; gap: 16px; padding-block: 12px; border-top: 1px solid var(--border); }
+  dt { color: var(--muted); font-size: 0.7rem; letter-spacing: 0.05em; padding-top: 3px; }
+  dd { font-size: 1rem; line-height: 1.55; color: #d8dbd2; }
+  @media (max-width: 1000px) { dl > div { grid-template-columns: 1fr; gap: 5px; } }
+  @media (max-width: 767px) { padding: 22px; }
+`;
+const CardHeading = styled.div`
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  h2 { font-size: 2.2rem; line-height: 1; }
+  span { font-size: 0.75rem; letter-spacing: 0.1em; color: var(--muted); }
+`;
 const DownloadButton = styled.a`
-  display: inline-block;
-  background-color: #CEFF51;
-  color: #000;
-  font-family: var(--font-mohave);
-  font-weight: bold;
-  font-size: 1.1rem;
-  padding: 0.75rem 1.5rem;
-  text-decoration: none;
-  text-align: center;
-  transition: all 0.2s ease;
-
-  @media screen and (max-width: 767px) {
-    align-self: center;
-  }
-`
+  ${buttonStyles}
+  margin-top: auto; background: transparent; color: var(--accent); justify-content: space-between;
+  &:hover { color: #101110; }
+`;

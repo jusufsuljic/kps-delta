@@ -1,10 +1,13 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components'; // Keep this here
+import { useRef } from 'react';
+import styled from 'styled-components';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { FiArrowRight } from 'react-icons/fi';
+import { PageContainer, PageHeading, buttonStyles } from '../components/ui/Editorial';
+import trainingImg from '@/../public/obukaimg.jpg';
 
-// --- Data can live here or be imported ---
 const trainings = [
   {
     id: "pistol",
@@ -85,154 +88,79 @@ const trainings = [
 ];
 
 
-const ObukaContent = () => {
-  const router = useRouter()
+
+export default function ObukaContent() {
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const [activeTab, setActiveTab] = useState(() => {
-    const tab = searchParams.get('tab');
-    return tab && trainings.some(t => t.id === tab) ? tab : trainings[0].id;
-  });
-
-  useEffect(() => {
-    const tab = searchParams.get('tab');
-    if (tab && trainings.some(t => t.id === tab)) {
-      setActiveTab(tab);
-    } else {
-      // Fallback to the first tab if the URL parameter is invalid
-      setActiveTab(trainings[0].id);
-    }
-  }, [searchParams]);
-
-  const registerForTraining = async () => {
-    if (activeTab === "pistol") {
-      // navigate to prijava/pistol1
-      router.push("/prijava/pistol1")
-    } else if (activeTab === "lowlight") {
-      router.push("/prijava/lowlight")
-
-    } else {
-      return
-    }
-  }
+  const requestedTab = searchParams.get('tab');
+  const activeTab = trainings.some(t => t.id === requestedTab) ? requestedTab! : 'pistol';
+  const training = trainings.find(t => t.id === activeTab)!;
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const selectTab = (id: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('tab', id);
+    router.replace(`/obuka?${params.toString()}`, { scroll: false });
+  };
 
   return (
-    // Use the container component here
-    <ObukaPageContainer>
-      <Tabs>
-        {trainings.map(({ id, label }) => (
-          <TabButton
-            key={id}
-            active={activeTab === id}
-            onClick={() => setActiveTab(id)}
-            aria-selected={activeTab === id}
-            role="tab"
-            tabIndex={activeTab === id ? 0 : -1}
-          >
-            {label}
-          </TabButton>
-        ))}
-      </Tabs>
-
-      <TabContent role="tabpanel">
-        {trainings.find((t) => t.id === activeTab)?.content}
-        <CustomButton onClick={() => registerForTraining()} disabled={activeTab == "lowlight"}>{activeTab == "lowlight" ? "COMING SOON" : "PRIJAVI SE"}</CustomButton>
-      </TabContent>
-
-    </ObukaPageContainer>
+    <PageContainer>
+      <PageHeading><h1>OBUKA SA CILJEM.</h1><p>Odaberi program i pronađi sve informacije o obuci, opremi i prijavi.</p></PageHeading>
+      <TrainingLayout>
+        <TrainingVisual><Image src={trainingImg} alt="Praktični trening na strelištu" fill priority sizes="(max-width: 900px) 100vw, 40vw" /><VisualCaption><strong>ZNANJE SE GRADI.<br />TRENING PO TRENING.</strong></VisualCaption></TrainingVisual>
+        <TrainingDetails>
+          <Tabs role="tablist" aria-label="Program obuke">
+            {trainings.map(({ id }, index) => <TabButton key={id} ref={el => { tabRefs.current[index] = el; }} id={`tab-${id}`} $active={activeTab === id} role="tab" aria-selected={activeTab === id} aria-controls={`panel-${id}`} tabIndex={activeTab === id ? 0 : -1} onClick={() => selectTab(id)} onKeyDown={event => {
+              let next = index;
+              if (event.key === 'ArrowRight') next = (index + 1) % trainings.length;
+              else if (event.key === 'ArrowLeft') next = (index - 1 + trainings.length) % trainings.length;
+              else if (event.key === 'Home') next = 0;
+              else if (event.key === 'End') next = trainings.length - 1;
+              else return;
+              event.preventDefault(); selectTab(trainings[next].id); tabRefs.current[next]?.focus();
+            }}>{id === 'pistol' ? 'PISTOL LEVEL 1' : 'LOW LIGHT PISTOL'}</TabButton>)}
+          </Tabs>
+          <TabContent id={`panel-${activeTab}`} role="tabpanel" aria-labelledby={`tab-${activeTab}`} tabIndex={0}>
+            <h2>{training.label}</h2>
+            {training.content}
+            <CustomButton onClick={() => router.push(activeTab === 'pistol' ? '/prijava/pistol1' : '/prijava/lowlight')} disabled={activeTab === 'lowlight'}>{activeTab === 'lowlight' ? 'COMING SOON' : <>PRIJAVI SE <FiArrowRight aria-hidden="true" /></>}</CustomButton>
+          </TabContent>
+        </TrainingDetails>
+      </TrainingLayout>
+    </PageContainer>
   );
-};
+}
 
-export default ObukaContent;
-
-// --- ALL STYLED COMPONENTS MOVED HERE ---
-const ObukaPageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem 20rem;
-
-  @media screen and (max-width: 767px) {
-    padding: 2rem;
-  }
+const TrainingLayout = styled.div`
+  display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 56px; align-items: start;
+  @media (max-width: 900px) { grid-template-columns: 1fr; gap: 32px; }
 `;
-
+const TrainingVisual = styled.div`
+  position: relative; min-height: 640px; background: var(--surface);
+  img { object-fit: cover; }
+  &::after { content: ''; position: absolute; inset: 50% 0 0; background: linear-gradient(transparent, #000b); }
+  @media (max-width: 900px) { min-height: 320px; img { object-position: 50% 42%; } }
+`;
+const VisualCaption = styled.div`
+  position: absolute; bottom: 32px; left: 32px; z-index: 1;
+  strong { font-size: 2.2rem; line-height: 1.1; }
+`;
+const TrainingDetails = styled.div`min-width: 0;`;
 const Tabs = styled.div`
-  display: flex;
-  align-self: flex-start;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 2px solid #333;
+  display: flex; border-bottom: 1px solid var(--border); margin-bottom: 32px;
 `;
-
-const TabButton = styled.button<{ active: boolean }>`
-  font-family: var(--font-mohave);
-  background: transparent;
-  border: none;
-  color: ${({ active }) => (active ? '#CEFF51' : '#777')};
-  font-weight: ${({ active }) => (active ? '900' : '600')};
-  font-size: 1.5rem;
-  @media screen and (max-width: 767px) {
-    font-size: 1rem;
-  }
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: color 0.3s ease;
-
-  &:hover {
-    color: #aadd22;
-  }
-
-  &:focus {
-    outline-offset: 3px;
-    outline: 2px solid #ceff51;
-  }
+const TabButton = styled.button<{ $active: boolean }>`
+  flex: 1; padding: 16px 10px; min-height: 54px; background: transparent; border: 0;
+  border-bottom: 2px solid ${({ $active }) => $active ? 'var(--accent)' : 'transparent'};
+  color: ${({ $active }) => $active ? 'var(--accent)' : 'var(--muted)'};
+  font-size: 0.9rem; font-weight: 600; letter-spacing: 0.06em; cursor: pointer;
+  &:hover { color: var(--accent); }
 `;
-
 const TabContent = styled.div`
-  font-size: 1rem;
-  line-height: 1.5;
-  margin-bottom: 2rem;
-  width: 100%; /* ensures uniform width */
-
-  p {
-    margin: 0 0 1.5rem 0; /* reset top margin, keep bottom spacing */
-  }
-
-  ul {
-    margin: 0 0 1.5rem 0; /* reset top margin */
-    padding-left: 1.2rem; /* uniform left indent */
-    list-style-position: inside; /* keeps bullets aligned with text */
-  }
-
-  li {
-    margin-bottom: 0.5rem;
-  }
-
-  strong {
-    display: block; /* makes "Šta je potrebno?" behave like a heading */
-    margin-bottom: 0.5rem;
-  }
+  font-size: 1.05rem; line-height: 1.65; color: #c4c8be;
+  h2 { font-size: 2.1rem; line-height: 1.15; color: var(--foreground); margin-bottom: 24px; }
+  p { margin-bottom: 18px; }
+  ul { padding-left: 20px; margin-bottom: 24px; }
+  li { margin-bottom: 8px; }
+  strong { color: var(--foreground); }
 `;
-
-
-const CustomButton = styled.button`
-  background-color: #ceff51;
-  border: none;
-  color: #000000;
-  font-family: var(--font-mohave);
-  font-size: 1.5rem;
-  font-weight: bold;
-  height: 4rem;
-  width: 100%;
-  cursor: pointer;
-  display: flex; /* Added for centering spinner */
-  justify-content: center; /* Added for centering spinner */
-  align-items: center; /* Added for centering spinner */
-  transition: opacity 0.2s ease;
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.65;
-  }
-`;
+const CustomButton = styled.button`${buttonStyles} width: 100%; justify-content: space-between; margin-top: 8px;`;

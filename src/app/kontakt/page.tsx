@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import styled from 'styled-components';
+import { containerStyles, buttonStyles, PageHeading } from '../components/ui/Editorial';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 
 export default function ContactPage() {
@@ -41,6 +42,7 @@ export default function ContactPage() {
 
     return (
         <PageContainer>
+            <PageHeading><h1>KONTAKT</h1><p>Informacije o članstvu, obukama i klubu. Javite nam se.</p></PageHeading>
             {/* --- This wrapper now only handles the two-column layout --- */}
             <ColumnsWrapper>
                 <InfoSection>
@@ -55,13 +57,13 @@ export default function ContactPage() {
                     </InfoItem>
                     <InfoItem>
                         <FaMapMarkerAlt />
-                        <span><a target="_blank" href="https://share.google/6kzBou3tgw0zyTQ4x">Sportsko Strelište Žuč, 71000 Sarajevo</a></span>
+                        <span><a target="_blank" rel="noopener noreferrer" href="https://share.google/6kzBou3tgw0zyTQ4x">Sportsko Strelište Žuč, 71000 Sarajevo</a></span>
                     </InfoItem>
                 </InfoSection>
 
                 {/* --- This new container holds everything for the right column --- */}
                 <FormColumn>
-                    <h1>KONTAKTIRAJTE NAS</h1>
+                    <h2>POŠALJITE NAM PORUKU</h2>
                     <p>Imate pitanje? Popunite formu ispod.</p>
 
                     <FormSection onSubmit={handleSubmit}>
@@ -98,7 +100,7 @@ export default function ContactPage() {
                         </SubmitButton>
 
                         {submissionStatus !== 'idle' && (
-                            <SubmissionStatusBox status={submissionStatus}>
+                            <SubmissionStatusBox role="status" $status={submissionStatus}>
                                 {submissionMessage}
                             </SubmissionStatusBox>
                         )}
@@ -109,36 +111,28 @@ export default function ContactPage() {
     );
 }
 
-// --- STYLED COMPONENTS ---
-
 const PageContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 4rem 12rem;
-  color: #fff;
-  background-color: #000;
-  min-height: 100vh;
-   @media screen and (max-width: 767px) {
-      padding: 2rem;
-
-  }
+  ${containerStyles}
+  padding-block: 56px 80px;
+  @media (max-width: 767px) { padding-block: 32px 48px; }
 `;
 
 const ColumnsWrapper = styled.div`
   display: flex;
-  gap: 4rem;
+  gap: 64px;
   width: 100%;
-  max-width: 1200px;
+  align-items: flex-start;
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 900px) {
     flex-direction: column;
+    > div { width: 100%; }
     gap: 2rem;
   }
 `;
 
 const InfoSection = styled.div`
   flex: 1; /* Takes up 1/3 of the space */
-  padding-top: 0.5rem; /* Small alignment adjustment */
+  padding: 32px; background: var(--surface); border-top: 2px solid var(--accent); min-width: 0;
   h2 {
     color: #ffffff;
     margin-bottom: 1.5rem;
@@ -153,11 +147,13 @@ const InfoItem = styled.div`
   font-size: 1rem;
 
   svg {
+    flex-shrink: 0;
     color: #CEFF51;
     font-size: 1.5rem;
   }
 
   a, span {
+    overflow-wrap: anywhere;
     color: #fff;
     text-decoration: none;
     transition: color 0.2s ease;
@@ -167,15 +163,14 @@ const InfoItem = styled.div`
   }
 `;
 
-// --- NEW: A dedicated container for the right column ---
 const FormColumn = styled.div`
-    flex: 2; /* Takes up 2/3 of the space */
+    flex: 1.4; min-width: 0;
     display: flex;
     flex-direction: column;
 
-    h1 {
+    h2 {
         color: #ffffff;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.5rem; font-size: 2rem;
     }
   
     p {
@@ -185,7 +180,6 @@ const FormColumn = styled.div`
     }
 `;
 
-// --- MODIFIED: FormSection no longer needs flex property ---
 const FormSection = styled.form`
   display: flex;
   flex-direction: column;
@@ -205,11 +199,11 @@ const CustomInputContainer = styled.div`
   input {
     background-color: #1a1a1a;
     color: #fff;
-    height: 2.5rem;
+    height: 3rem;
     width: 100%;
-    border-radius: 6px;
+    border-radius: 0;
     padding-left: 1rem;
-    border: 2px solid gray;
+    border: 1px solid #50554a;
     transition: border-color 0.2s ease;
     
     &:focus {
@@ -224,9 +218,9 @@ const CustomTextarea = styled.textarea`
     color: #fff;
     min-height: 120px;
     width: 100%;
-    border-radius: 6px;
+    border-radius: 0;
     padding: 0.75rem 1rem;
-    border: 2px solid gray;
+    border: 1px solid #50554a;
     resize: vertical;
     transition: border-color 0.2s ease;
 
@@ -238,30 +232,12 @@ const CustomTextarea = styled.textarea`
 
 const CharCounter = styled.div`
   text-align: right;
-  font-size: 0.8rem;
-  color: #888;
+  font-size: 0.85rem;
+  color: var(--muted);
   margin-top: 0.25rem;
 `;
 
-const SubmitButton = styled.button`
-    background-color: #CEFF51;
-    border: none;
-    color: #000000;
-    font-family: var(--font-mohave);
-    font-size: 1.5rem;
-    font-weight: bold;
-    height: 4rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.2s ease;
-
-    &:disabled {
-        cursor: not-allowed;
-        opacity: 0.65;
-    }
-`;
+const SubmitButton = styled.button`${buttonStyles}`;
 
 const Spinner = styled.div`
   border: 4px solid rgba(0, 0, 0, 0.1);
@@ -277,11 +253,11 @@ const Spinner = styled.div`
   }
 `;
 
-const SubmissionStatusBox = styled.div<{ status: 'success' | 'error' }>`
+const SubmissionStatusBox = styled.div<{ $status: 'success' | 'error' }>`
   padding: 1rem;
   margin-top: 1rem;
   border-radius: 8px;
   font-weight: 500;
   color: #fff;
-  background-color: ${({ status }) => (status === 'success' ? '#28a745' : '#dc3545')};
+  background-color: ${({ $status }) => ($status === 'success' ? '#28a745' : '#dc3545')};
 `;

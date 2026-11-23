@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import styled from "styled-components";
+import { SignUpPageContainer, SignUpForm, CustomSignUpInputContainer, CustomSignUpButton } from "../components/ui/FormStyles";
 
-// --- Main Component ---
 export default function SignUp() {
   // Existing state
   const [hasWeapon, setHasWeapon] = useState(false);
@@ -97,27 +97,27 @@ export default function SignUp() {
 
         {/* All your input fields remain the same... */}
         <CustomSignUpInputContainer>
-          <label>Ime</label>
-          <input name="ime" required></input>
+          <label htmlFor="ime">Ime</label>
+          <input id="ime" name="ime" required></input>
         </CustomSignUpInputContainer>
         <CustomSignUpInputContainer>
-          <label>Prezime</label>
-          <input name="prezime" required></input>
+          <label htmlFor="prezime">Prezime</label>
+          <input id="prezime" name="prezime" required></input>
         </CustomSignUpInputContainer>
         <CustomSignUpInputContainer>
-          <label>Kontakt telefon</label>
-          <input name="kontaktTelefon" required></input>
+          <label htmlFor="kontaktTelefon">Kontakt telefon</label>
+          <input id="kontaktTelefon" name="kontaktTelefon" required></input>
         </CustomSignUpInputContainer>
         <CustomSignUpInputContainer>
-          <label>Email</label>
-          <input type="email" name="email" required></input>
+          <label htmlFor="email">Email</label>
+          <input id="email" type="email" name="email" required></input>
         </CustomSignUpInputContainer>
         <CustomSignUpInputContainer>
-          <label>Broj lične karte</label>
-          <input name="brojLicneKarte" required></input>
+          <label htmlFor="brojLicneKarte">Broj lične karte</label>
+          <input id="brojLicneKarte" name="brojLicneKarte" required></input>
         </CustomSignUpInputContainer>
         <CustomSignUpInputContainer>
-          <label>Fotografija</label>
+          <label htmlFor="photo">Fotografija</label>
           <HiddenFileInput
             type="file"
             id="photo"
@@ -134,12 +134,12 @@ export default function SignUp() {
           </CustomUploadLabel>
         </CustomSignUpInputContainer>
         <CustomSignUpInputContainer>
-          <label>Adresa stanovanja</label>
-          <input name="adresaStanovanja" required></input>
+          <label htmlFor="adresaStanovanja">Adresa stanovanja</label>
+          <input id="adresaStanovanja" name="adresaStanovanja" required></input>
         </CustomSignUpInputContainer>
         <CustomSignUpInputContainer>
           <label>Posjedujem oružje</label>
-          <CustomRadioGroup>
+          <CustomRadioGroup role="radiogroup" aria-label="Posjedujem oružje">
             <input
               type="radio"
               id="yes1"
@@ -162,8 +162,8 @@ export default function SignUp() {
         </CustomSignUpInputContainer>
         {hasWeapon && (
           <CustomSignUpInputContainer>
-            <label>Broj oružnog lista</label>
-            <input name="brojOruzanogLista" required></input>
+            <label htmlFor="brojOruzanogLista">Broj oružnog lista</label>
+            <input id="brojOruzanogLista" name="brojOruzanogLista" required></input>
           </CustomSignUpInputContainer>
         )}
         {/* <PackageSelectionContainer>
@@ -190,7 +190,7 @@ export default function SignUp() {
 
         {/* --- NEW: Status message box appears after submission attempt --- */}
         {submissionStatus !== 'idle' && (
-          <SubmissionStatusBox status={submissionStatus}>
+          <SubmissionStatusBox role="status" $status={submissionStatus}>
             {submissionMessage}
           </SubmissionStatusBox>
         )}
@@ -199,9 +199,6 @@ export default function SignUp() {
   );
 }
 
-// --- Styled Components ---
-
-// --- NEW: Spinner animation component ---
 const Spinner = styled.div`
   border: 4px solid rgba(0, 0, 0, 0.1);
   width: 24px;
@@ -221,15 +218,14 @@ const Spinner = styled.div`
   }
 `;
 
-// --- NEW: Component for success/error messages ---
-const SubmissionStatusBox = styled.div<{ status: 'success' | 'error' }>`
+const SubmissionStatusBox = styled.div<{ $status: 'success' | 'error' }>`
   padding: 1rem;
   margin-top: 1rem;
-  border-radius: 8px;
+  border-radius: 0;
   text-align: center;
   font-weight: 500;
   color: #fff;
-  background-color: ${({ status }) => (status === 'success' ? '#28a745' : '#dc3545')};
+  background-color: ${({ $status }) => ($status === 'success' ? '#28a745' : '#dc3545')};
   animation: fadeIn 0.5s ease;
 
   @keyframes fadeIn {
@@ -244,60 +240,23 @@ const SubmissionStatusBox = styled.div<{ status: 'success' | 'error' }>`
   }
 `;
 
-// --- MODIFIED: Button now handles disabled state ---
-const CustomSignUpButton = styled.button`
-  background-color: #CEFF51;
-  border: none;
-  color: #000000;
-  font-family: var(--font-mohave);
-  font-size: 1.5rem;
-  font-weight: bold;
-  height: 4rem;
-  cursor: pointer;
-  display: flex; /* Added for centering spinner */
-  justify-content: center; /* Added for centering spinner */
-  align-items: center; /* Added for centering spinner */
-  transition: opacity 0.2s ease;
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.65;
-  }
-`;
-
-// --- All your other styled-components remain unchanged ---
-const SignUpPageContainer = styled.div`
-  display: flex;
-  gap: 1rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem 20rem;
-  @media screen and (max-width: 767px) {
-    padding: 2rem;
-  }
-`;
-
-const SignUpForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 1rem;
-`;
-
 const CustomRadioGroup = styled.div`
   display: flex;
   gap: 1rem;
   margin-top: 0.5rem;
 
   input[type='radio'] {
-    display: none;
+    position: absolute; width: 1px; height: 1px; opacity: 0;
   }
+  input[type='radio']:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 4px; }
 
   label {
+    min-height: 44px;
+    min-width: 48px;
+    text-align: center;
     padding: 0.5rem 1rem;
     border: 2px solid gray;
-    border-radius: 8px;
+    border-radius: 0;
     cursor: pointer;
     transition: all 0.2s ease;
     font-weight: 500;
@@ -307,27 +266,6 @@ const CustomRadioGroup = styled.div`
     background-color: #ceff51;
     border-color: #ceff51;
     color: black;
-  }
-`;
-
-const CustomSignUpInputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-input {
-    background-color: #1a1a1a;
-    color: #fff;
-    height: 2.5rem;
-    width: 100%;
-    border-radius: 6px;
-    padding-left: 1rem;
-    border: 2px solid gray;
-    transition: border-color 0.2s ease;
-    
-    &:focus {
-      outline: none;
-      border-color: #CEFF51;
-    }
   }
 `;
 
@@ -381,7 +319,8 @@ const Price = styled.div`
 `;
 
 const HiddenFileInput = styled.input`
-  display: none;
+  position: absolute; width: 1px; height: 1px; opacity: 0;
+  &:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 4px; }
 `;
 
 const CustomUploadLabel = styled.label`
@@ -390,9 +329,11 @@ const CustomUploadLabel = styled.label`
   color: #ceff51;
   border: 2px solid #ceff51;
   padding: 0.5rem 1rem;
-  border-radius: 8px;
+  border-radius: 0;
   cursor: pointer;
-  margin-top: 0.5rem;
+  margin-top: 0;
+  min-height: 48px;
+  overflow-wrap: anywhere;
   text-align: center;
   transition: all 0.25s ease;
 
